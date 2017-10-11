@@ -9,6 +9,10 @@ gameplayState.prototype.preload = function(){
 	game.load.image("bkpk","assets/backpack.png");
 	game.load.image("bkpkMenu","assets/bkpkMenu.png");
 	game.load.image("scrollTile","assets/scrollTile.png");
+	game.load.image("ntbk","assets/notebook.png");
+	game.load.image("ntbkMenu","assets/notebookMenu.png");
+	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect.png");
+	game.load.image("ntbkPanel","assets/notebookPanel.png");
 }
 
 
@@ -16,6 +20,41 @@ gameplayState.prototype.preload = function(){
 gameplayState.prototype.create = function(){
 	game.add.sprite(0,0,"sky");
 	
+	//add the notebook's bg
+	game.add.sprite(40,75,"ntbkMenu");
+	//add the tiles at the top.	Eventually will add the ability to switch through them easily.
+	for(i=0;i<3;i++)
+	{
+		game.add.sprite(40+i*223, 225,"ntbkMenuSelect");
+		var style = { font: "bold 40px Arial", fill: "#fff", align: "center"};
+		
+		var inputText = "error!";
+		
+		switch(i)
+		{
+			case 0:
+				inputText = "Objects";
+				break;
+			case 1:
+				inputText = "Suspects";
+				break;
+			case 2:
+				inputText = "Locations";
+				break;
+		}
+		
+		var text = game.add.text(40+i*223+223/2,225+70/2,inputText,style);
+		//NOTE: 223 is the width of the textBox, and 70 is its height
+		text.anchor.set(0.5,0.5);
+	}
+	
+	for(i = 0;i<3;i++)
+	{
+		game.add.sprite(40, 225 + 70 + 263*i,"ntbkPanel");
+		//note: 263 is the height of the notebook panel
+	}
+	this.canDrag = game.add.group();
+	/*
 	let bkpk = game.add.sprite(750-150,1334-150,"bkpk");
 	this.bkpkOpen = false;
 	
@@ -23,7 +62,6 @@ gameplayState.prototype.create = function(){
 	this.bkpkMenu.visible = false;
 	
 	this.invTiles = game.add.group();
-	this.canDrag = game.add.group();
 	
 	//openBackpack();
 	
@@ -49,7 +87,7 @@ gameplayState.prototype.create = function(){
 	this.scrollUp.visible = false;
 	this.scrollDown.visible = false;
 	this.invTiles.visible = false;
-	
+	*/
 	let item = this.canDrag.create(50,350,"item");
 	
 	
@@ -75,12 +113,12 @@ gameplayState.prototype.create = function(){
 	item.input.enableDrag();
 	item.events.onDragStop.add(checkIfReturnToOrigin, this);
 	
-	
+	/*
 	bkpk.inputEnabled = true;
 	bkpk.events.onInputDown.add(openBackpack, this);
-	
+	*/
 }
-
+/*
 function openBackpack(){
 	
 	this.bkpkOpen=true;
@@ -92,11 +130,12 @@ function openBackpack(){
 	this.invTiles.visible = true;
 
 }
-
+*/
 
 gameplayState.prototype.update = function(){
 	if(game.input.mousePointer.isDown)
 	{
+		/*
 		if(game.input.mousePointer.x <750-190 && this.bkpkOpen==true){
 			bkpkOpen = false;
 			this.bkpkMenu.visible = false;	
@@ -106,6 +145,7 @@ gameplayState.prototype.update = function(){
 	
 			
 		}
+		*/
 	}
 }
 
