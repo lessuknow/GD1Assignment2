@@ -16,6 +16,7 @@ gameplayState.prototype.preload = function(){
 	game.load.image("tempIcon","assets/tempIcon.png");
 	game.load.image("cabAbove","assets/art/Cab_750x1334.png");
 	game.load.image("cabBg","assets/art/Cab_Background_750x1334.png");
+	game.load.image("perOneIcon","assets/art/croppedIcons/charOneCropped.png");
 }
 
 
@@ -65,13 +66,33 @@ gameplayState.prototype.create = function(){
 		//note: 263 is the height of the notebook panel
 		this.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon");
 		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 450};
-		var text = game.add.text(40 + ICON_BORDER*2 + 200, 225 + 62 + 263 * i + ICON_BORDER,"dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd",style,this.notepadStuff);
+		var tempText = "dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd";
+		//var tempText = "Small glass bottle\nof rat poison, the\nvulgar arsenic. \nA very likely choice\nfor poisoning."
+
 		
-		var text = game.add.text(40+ICON_BORDER, 300,"help me");
+		var text = game.add.text(40 + ICON_BORDER*2 + 200, 225 + 62 + 263 * i + ICON_BORDER,tempText,style,this.notepadStuff);
+		
+		stylet = { font: "bold 35px Arial", fill: "#fff", align: "center"};
+		var text = game.add.text(40+ICON_BORDER+100,312 + 263*i+3,"file_name",stylet,this.notepadStuff);
+		text.anchor.set(0.5,0.5);
 		//18 char per line; 4 lines.
 		//90 is the size fo the Icon
 	}
 	
+	
+	//suspectCount
+	var suspects = [];
+	
+	let susOne = {
+		name = "testName";
+		age = 3;
+		race = "testRace";
+		heightWeight = "testheightWeight";
+		hair = "testHair";
+		eyes = "testEyes";
+		infoWantedDescrip = "...";
+		pic = "assets/Art/
+	};
 	
 	this.clickables = game.add.group();
 	
