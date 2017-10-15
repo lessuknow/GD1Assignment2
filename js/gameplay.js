@@ -1,4 +1,5 @@
 //'constructor'
+var descriptionText; //This will manipulate what shows up on the textbox
 let gameplayState = function(){
 	
 }
@@ -14,8 +15,8 @@ gameplayState.prototype.preload = function(){
 	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect.png");
 	game.load.image("ntbkPanel","assets/notebookPanel.png");
 	game.load.image("tempIcon","assets/tempIcon.png");
-	game.load.image("cabAbove","assets/art/Cab_750x1334.png");
-	game.load.image("cabBg","assets/art/Cab_Background_750x1334.png");
+	game.load.image("cabAbove","assets/Art/Cab_750x1334.png");
+	game.load.image("cabBg","assets/Art/Cab_Background_750x1334.png");
 }
 
 
@@ -73,15 +74,14 @@ gameplayState.prototype.create = function(){
 	}
 	
 	
-	this.clickables = game.add.group();
 	
 	//example item one
-	let item = this.clickables.create(50,350,"item");
+/*	let item = this.clickables.create(50,350,"item");
 	
 	item.origX = item.x;
 	item.origY = item.y;
 	
-	
+*/	
 	
 	//we're going to use 2 arrays to store a key/value. like a super ghetto dictionary
 	//keys = sprite, values = text
@@ -91,7 +91,36 @@ gameplayState.prototype.create = function(){
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(toggleNotepad, this);
 	//this.notepadStuff.visible = false;
+	/* This is where the items will be loaded and added to the scene
+	 * We will probably have to group items based on what level they appear
+	 * unless they are in the players inventroy */
 
+	let item =  game.add.sprite(50, 350, "item");
+	let item2 = game.add.sprite(100, 350, "item");
+	//Trying to think of a way to automate this process(?) If there is time
+	//ITEM 1 PARAMETERS
+	item.origX = item.x; 
+	item.origY = item.y;
+	item.inputEnabled = true;
+	item.description = "This is Arsenic";
+	//ITEM 2 PARAMETERS
+	item2.origX = item.x;
+	item2.origY = item.y;
+	item2.inputEnabled = true;
+	item2.description = "This is a Paper Towel";
+	//ADD items into group
+	let items = game.add.group()
+	items.add(item);
+	items.add(item2);
+	descriptionText = game.add.text(0, game.world.height - 250, '', {fill: '#ffffff'});
+	items.forEach(function (obj) {
+		obj.events.onInputDown.add(showItemDescription, {description: obj.description});
+	}, this);
+
+}
+
+function showItemDescription(){
+	descriptionText.text = this.description;
 }
 
 function toggleNotepad(){
