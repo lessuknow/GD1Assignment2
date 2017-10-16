@@ -28,75 +28,54 @@ gameplayState.prototype.create = function(){
 	
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
-	
-	//add the notebook's bg
-	this.notepadStuff = game.add.group();
-	
-	//Create the notebook
-	this.notepadStuff.create(40,75,"ntbkMenu");
-	const ICON_BORDER = 30;
-	//add the tiles at the top.	Eventually will add the ability to switch through them easily.
-	for(i=0;i<3;i++)
-	{
-		this.notepadStuff.create(40+i*223, 225,"ntbkMenuSelect");
-		var style = { font: "bold 40px Arial", fill: "#fff", align: "center"};
-		
-		var inputText = "error!";
-		
-		switch(i)
-		{
-			case 0:
-				inputText = "Objects";
-				break;
-			case 1:
-				inputText = "Suspects";
-				break;
-			case 2:
-				inputText = "Locations";
-				break;
-		}
-		
-		var text = game.add.text(40+i*223+223/2,225+70/2,inputText,style,this.notepadStuff);
-		//NOTE: 223 is the width of the textBox, and 70 is its height
-		text.anchor.set(0.5,0.5);
-	}
-	
-	for(i = 0;i<3;i++)
-	{
-		this.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel");
-		//note: 263 is the height of the notebook panel
-		this.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon");
-		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 450};
-		var tempText = "dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd";
-		//var tempText = "Small glass bottle\nof rat poison, the\nvulgar arsenic. \nA very likely choice\nfor poisoning."
 
-		
-		var text = game.add.text(40 + ICON_BORDER*2 + 200, 225 + 62 + 263 * i + ICON_BORDER,tempText,style,this.notepadStuff);
-		
-		stylet = { font: "bold 35px Arial", fill: "#fff", align: "center"};
-		var text = game.add.text(40+ICON_BORDER+100,312 + 263*i+3,"file_name",stylet,this.notepadStuff);
-		text.anchor.set(0.5,0.5);
-		//18 char per line; 4 lines.
-		//90 is the size fo the Icon
-	}
+	instantiateNotepad(this);
+	this.curNotepadPos = "suspects";
 	
+	//Going to assume that we defualt have suspects open
 	
 	//suspectCount
-	var suspects = [];
-	/*
+	this.suspects = [];
+	
 	let susOne = {
-		name = "testName";
-		age = 3;
-		race = "testRace";
-		heightWeight = "testheightWeight";
-		hair = "testHair";
-		eyes = "testEyes";
-		infoWantedDescrip = "...";
-		pic = "assets/Art/"
+		name: "testName",
+		age: 3,
+		race: "testRace",
+		heightWeight: "testheightWeight",
+		hair: "testHair",
+		eyes: "testEyes",
+		infoWantedDescrip: "...",
+		notepadDescrip: "hello",
+		pic: "perOneIcon",
 	};
-	*/
-	this.clickables = game.add.group();
-
+		
+	let susTwo = {
+		name: "testName2",
+		age: 5,
+		race: "testRace2",
+		heightWeight: "testheightWeight2",
+		hair: "testHair2",
+		eyes: "testEyes2",
+		infoWantedDescrip: "2...",
+		notepadDescrip: "hello2",
+		pic: "perTwoIcon",
+	};
+		
+	let susThree = {
+		name: "testName3",
+		age: 1,
+		race: "testRace3",
+		heightWeight: "testheightWeight3",
+		hair: "testHair3",
+		eyes: "testEyes3",
+		infoWantedDescrip: "3...",
+		notepadDescrip: "hello3",
+		pic: "perThreeIcon",
+	};
+	
+	this.suspects.push(susOne);
+	this.suspects.push(susTwo);
+	this.suspects.push(susThree);
 
 	
 	//we're going to use 2 arrays to store a key/value. like a super ghetto dictionary
@@ -106,7 +85,13 @@ gameplayState.prototype.create = function(){
 	this.but = game.add.sprite(600,1334-150,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(toggleNotepad, this);
-	//this.notepadStuff.visible = false;
+	
+	for(i=0;i<this.notepadStuff.panels.length;i++)
+		for(j=0;j<this.notepadStuff.panels[i].length;j++)
+			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
+	
+	this.notepadStuff.visible = !this.notepadStuff.visible;
+	
 	/* This is where the items will be loaded and added to the scene
 	 * We will probably have to group items based on what level they appear
 	 * unless they are in the players inventroy */
@@ -140,10 +125,93 @@ function showItemDescription(){
 }
 
 function toggleNotepad(){
-	//if(this.notepadStuff.visible === false)
-		this.notepadStuff.visible = !this.notepadStuff.visible;
+	
+	if(this.curNotepadPos==="suspects"){
+		for(i =0;i<this.suspects.length;i++)
+		{
+			
+			for(j=0;j<this.notepadStuff.panels[i].length;j++)
+			{
+				this.notepadStuff.panels[i][1].text = this.suspects[i].notepadDescrip;
+				this.notepadStuff.panels[i][2].text = this.suspects[i].name;
+			}
+		}
+	}
+	
+	for(i=0;i<this.notepadStuff.panels.length;i++)
+		for(j=0;j<this.notepadStuff.panels[i].length;j++)
+			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
+	
+	this.notepadStuff.visible = !this.notepadStuff.visible;
 }
 
+	
+function instantiateNotepad(that){
+	//add the notebook's bg
+	that.notepadStuff = game.add.group();
+	
+	//Create the notebook
+	that.notepadStuff.create(40,75,"ntbkMenu");
+	const ICON_BORDER = 30;
+	//add the tiles at the top.	Eventually will add the ability to switch through them easily.
+	for(i=0;i<3;i++)
+	{
+		that.notepadStuff.create(40+i*223, 225,"ntbkMenuSelect");
+		var style = { font: "bold 40px Arial", fill: "#fff", align: "center"};
+		
+		var inputText = "error!";
+		
+		switch(i)
+		{
+			case 0:
+				inputText = "Objects";
+				break;
+			case 1:
+				inputText = "Suspects";
+				break;
+			case 2:
+				inputText = "Locations";
+				break;
+		}
+		
+		var text = game.add.text(40+i*223+223/2,225+70/2,inputText,style,that.notepadStuff);
+		//NOTE: 223 is the width of the textBox, and 70 is its height
+		text.anchor.set(0.5,0.5);
+	}
+	
+	//NOTE: panels[i][0] = image, [i][1] = descript, [i][2] = name
+	that.notepadStuff.panels = [];
+	for(i =0;i<3;i++)
+	{
+		var temp =[];
+		
+		temp.push(that.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel"));
+		//note: 263 is the height of the notebook panel
+		that.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon");
+		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 450};
+		var tempText = "dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd";
+		//var tempText = "Small glass bottle\nof rat poison, the\nvulgar arsenic. \nA very likely choice\nfor poisoning."
+
+		
+		var itemDescript = game.add.text(40 + ICON_BORDER*2 + 200, 225 + 62 + 263 * i + ICON_BORDER,tempText,style);
+		temp.push(itemDescript);
+		
+		stylet = { font: "bold 35px Arial", fill: "#fff", align: "center"};
+		var itemName = game.add.text(40+ICON_BORDER+100,312 + 263*i+3,"file_name",stylet);
+		temp.push(itemName);
+		itemName.anchor.set(0.5,0.5);
+		
+		that.notepadStuff.panels.push(temp);
+
+	}
+	
+	//18 char per line; 4 lines.
+	//90 is the size fo the Icon
+		
+		
+	
+	
+}
 
 
 gameplayState.prototype.update = function(){
