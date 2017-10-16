@@ -32,13 +32,14 @@ gameplayState.prototype.create = function(){
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
 
-	instantiateNotepad(this);
 	this.curNotepadPos = "suspects";
+	instantiateNotepad(this);
+	
 	//this.curNotepadPos = "objects";
 	
 	//Going to assume that we defualt have suspects open
 	
-	//suspectCount
+	//suspects
 	this.suspects = [];
 	
 	let susOne = {
@@ -81,6 +82,26 @@ gameplayState.prototype.create = function(){
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
 
+	this.locations = [];
+	
+	let locationOne = {
+		name : "locationOne",
+		description : "descriptOne",
+	};
+	
+	let locationTwo = {
+		name : "locationTwo",
+		description : "descriptTwo",
+	};
+	
+	let locationThree = {
+		name : "locationThree",
+		description : "descriptThree",
+	};
+	
+	this.locations.push(locationOne);
+	this.locations.push(locationTwo);
+	this.locations.push(locationThree);
 	
 	//we're going to use 2 arrays to store a key/value. like a super ghetto dictionary
 	//keys = sprite, values = text
@@ -88,7 +109,7 @@ gameplayState.prototype.create = function(){
 
 	this.but = game.add.sprite(600,1334-150,"bkpk");
 	this.but.inputEnabled = true;
-	this.but.events.onInputDown.add(toggleNotepad, this);
+	this.but.events.onInputDown.add(enableDisableNotepad, this);
 
 	
 	for(i=0;i<this.notepadStuff.panels.length;i++)
@@ -103,6 +124,7 @@ gameplayState.prototype.create = function(){
 	 * We will probably have to group items based on what level they appear
 	 * unless they are in the players inventroy */
 
+	//TODO: item images.
 	let item =  game.add.sprite(50, 350, "item"); //Arsenic Bottle
 	item.description = "A small glass bottle of rat poison - the vulgar, ubiquitous arsenic. A very likely choice for a poisoning."
 	item.name = "Arsenic Bottle";
@@ -199,12 +221,11 @@ function showItemDescription(){
 	descriptionText.text = this.description;
 }
 
-function toggleNotepad(){
+function swapNotepad(){
 	
 	if(this.curNotepadPos==="suspects"){
 		for(i =0;i<this.suspects.length;i++)
 		{
-			
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
 				this.notepadStuff.panels[i][1].text = this.suspects[i].notepadDescrip;
@@ -223,7 +244,21 @@ function toggleNotepad(){
 			}
 		}
 	}
-	
+	else
+	{
+		for(i=0;i<3;i++)
+		{
+			for(j=0;j<this.notepadStuff.panels[i].length;j++)
+			{
+				this.notepadStuff.panels[i][1].text = this.locations[i].description;
+				this.notepadStuff.panels[i][2].text = this.locations[i].name;
+			}
+		}
+	}
+
+}
+
+function enableDisableNotepad(){
 	for(i=0;i<this.notepadStuff.panels.length;i++)
 		for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
@@ -231,8 +266,16 @@ function toggleNotepad(){
 	this.notepadStuff.visible = !this.notepadStuff.visible;
 }
 
-function swap(that){
-	that.curNotepadPos = "objects";
+function swapObj(){
+	this.curNotepadPos = "objects";
+}
+	
+function swapSus(){
+	this.curNotepadPos = "suspects";
+}
+	
+function swapLoc(){
+	this.curNotepadPos = "locations";
 }
 	
 function instantiateNotepad(that){
@@ -243,32 +286,43 @@ function instantiateNotepad(that){
 	that.notepadStuff.create(40,75,"ntbkMenu");
 	const ICON_BORDER = 30;
 	//add the tiles at the top.	Eventually will add the ability to switch through them easily.
+	that.notepadStuff.topBut = [];
 	for(i=0;i<3;i++)
 	{
 		var panelBox = that.notepadStuff.create(40+i*223, 225,"ntbkMenuSelect");
-		var style = { font: "bold 40px Arial", fill: "#fff", align: "center"};
-		var text = game.add.text(40+i*223+223/2,225+70/2,inputText,style,that.notepadStuff);
-		
+				
 		panelBox.inputEnabled = true;
+
+		that.notepadStuff.topBut.push(panelBox);
+		
+		var style = { font: "bold 40px Arial", fill: "#fff", align: "center"};
+		
+		var text = game.add.text(40+i*223+223/2,225+70/2,inputText,style,that.notepadStuff);
 		text.inputEnabled = true;
+
 		
 		var inputText = "error!";
 		switch(i)
 		{
 			case 0:
 				inputText = "Objects";
-				panelBox.events.onInputDown.add(swap(),that);
-				//toggleNotepad(that);
+				panelBox.events.onInputDown.add(swapObj, that);
+				text.events.onInputDown.add(swapObj,that);
 				break;
 			case 1:
 				inputText = "Suspects";
+				panelBox.events.onInputDown.add(swapSus, that);
+				text.events.onInputDown.add(swapSus,that);
 				break;
 			case 2:
 				inputText = "Locations";
+				panelBox.events.onInputDown.add(swapLoc, that);
+				text.events.onInputDown.add(swapLoc,that);				
 				break;
 		}
-		
-		text = inputText;
+		panelBox.events.onInputDown.add(swapNotepad, that);
+		text.events.onInputDown.add(swapNotepad,that);
+		text.setText(inputText);
 		
 		//NOTE: 223 is the width of the textBox, and 70 is its height
 		text.anchor.set(0.5,0.5);
