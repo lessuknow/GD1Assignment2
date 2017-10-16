@@ -147,45 +147,46 @@ gameplayState.prototype.create = function(){
 	let item2 = game.add.sprite(250, 350, "ArReceipt"); //Arsenic Receipt
 	item2.description = "A receipt from the local drug store for a dram of rat poison";
 	item2.name = "Arsenic Receipt";
-	item.pic = "ArReceipt";
+	item2.pic = "ArReceipt";
 	let item3 = game.add.sprite(500, 350, "Cash"); //Loose Money
 	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
 	item3.name = "Loose Money";
-	item.pic = "Cash";
+	item3.pic = "Cash";
 	let item4 = game.add.sprite(0, 700, "Combination"); //Combination
 	item4.description = "A slip of paper containing only the digits 2 6 2 9. It appears to be written in a quick, inexact handwriting."
 	item4.name = "Combination";
-	item.pic = "Combination";
+	item4.pic = "Combination";
 	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
 	item5.description = "A carefully-folded letter with neat, deliberate writing."
 	item5.name = "Friend 1: Letter to Deceased";
-	item.pic = "Letter1";
+	item5.pic = "Letter1";
 	let item6 = game.add.sprite(500, 700, "Letter2"); //Friend 2: Letter to Deceased
 	item6.description = "A childishly scribbled note with a few stains on it."
 	item6.name = "Friend 2: Letter to Deceased";
-	item.pic = "Letter2";
+	item6.pic = "Letter2";
 	let item7 = game.add.sprite(0, 950, "Letter3"); //Friend 3: Letter to Deceased
 	item7.description = "A crumpled letter written with an inexcusable excess of ink."
 	item7.name = "Friend 3: Letter to Deceased";
-	item.pic = "Letter3";
+	item7.pic = "Letter3";
 	let item8 = game.add.sprite(250, 950, "Receipt1"); //Friend 1: Receipt from Bar
 	item8.description = "A receipt for some light bare fare."
 	item8.name = "Friend 1: Receipt from Bar";
-	item.pic = "Receipt1";
+	item8.pic = "Receipt1";
 	let item9 = game.add.sprite(500, 950, "Receipt2"); //Friend 3: Receipt from Bar
 	item9.description = "A short receipt for a meat pie with tomato sauce."
 	item9.name = "Friend 3: Receipt from Bar";
-	item.pic = "Receipt2";
+	item9.pic = "Receipt2";
 	let item10 = game.add.sprite(0, 1200, "Receipt3"); //Deceased: Receipt from Bar
 	item10.description = "This receipt is for enought alcohol to kill a man. I would assume that was the case but for the circumstances."
 	item10.name = "Deceased: Receipt from Bar";
-	item.pic = "Receipt3";
+	item10.pic = "Receipt3";
 	
 	//Let's have the inventory have like 4 items rn.
 	this.playerInventory.push(item);
 	this.playerInventory.push(item2);
 	this.playerInventory.push(item3);
 	this.playerInventory.push(item4);
+	this.playerInventory.push(item10);
 	
 
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
@@ -265,6 +266,10 @@ function swapNotepad(){
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
+				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
+				this.notepadStuff.panels[i][0].width = 200;
+				this.notepadStuff.panels[i][0].height = 200;
+				
 				this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
 				this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
 				this.notepadStuff.panels[i][0].loadTexture(this.playerInventory[i + this.curNotepadIndex].pic,0,false);
@@ -376,7 +381,7 @@ function instantiateNotepad(that){
 		that.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel");
 		//note: 263 is the height of the notebook panel
 		temp.push(that.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon"));
-		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 450};
+		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
 		var tempText = "dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd";
 		//var tempText = "Small glass bottle\nof rat poison, the\nvulgar arsenic. \nA very likely choice\nfor poisoning."
 
