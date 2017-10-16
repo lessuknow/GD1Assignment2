@@ -21,8 +21,20 @@ gameplayState.prototype.preload = function(){
 	game.load.image("perTwoIcon","assets/Art/croppedIcons/charTwoCropped.png");
 	game.load.image("perThreeIcon","assets/Art/croppedIcons/charThreeCropped.png");
 	game.load.image("fade_Black", "assets/Black.png");
+
 	game.load.image("arrow","assets/tempArrow.png");
 	
+	//THE OBJECTS OF THE GAME
+	game.load.image("ArBottle", "assets/Art/Items_450x500_300dpi/Arsenic-Bottle.png");
+	game.load.image("ArReceipt", "assets/Art/Items_450x500_300dpi/Arsenic-Receipt.png");
+	game.load.image("Cash", "assets/Art/Items_450x500_300dpi/Cash.png");
+	game.load.image("Combination", "assets/Art/Items_450x500_300dpi/Combination.png");
+	game.load.image("Letter3", "assets/Art/Items_450x500_300dpi/Crumpled-Letter-3.png");
+	game.load.image("Letter2", "assets/Art/Items_450x500_300dpi/Scribbled-Letter-2.png");
+	game.load.image("Letter1", "assets/Art/Items_450x500_300dpi/Well-folded-Letter-1.png");
+	game.load.image("Receipt1", "assets/Art/Items_450x500_300dpi/R1.png");
+	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
+	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
 }
 
 
@@ -127,37 +139,47 @@ gameplayState.prototype.create = function(){
 	 * We will probably have to group items based on what level they appear
 	 * unless they are in the players inventroy */
 
-	//TODO: item images.
-	let item =  game.add.sprite(50, 350, "item"); //Arsenic Bottle
+	let item =  game.add.sprite(0, 350, "ArBottle"); //Arsenic Bottle
 	item.description = "A small glass bottle of rat poison - the vulgar, ubiquitous arsenic. A very likely choice for a poisoning."
 	item.name = "Arsenic Bottle";
-	let item2 = game.add.sprite(100, 350, "item"); //Arsenic Receipt
+	item.pic = "ArBottle";
+	item.scale.setTo(0.3, 0.3);
+	let item2 = game.add.sprite(250, 350, "ArReceipt"); //Arsenic Receipt
 	item2.description = "A receipt from the local drug store for a dram of rat poison";
 	item2.name = "Arsenic Receipt";
-	let item3 = game.add.sprite(150, 350, "item"); //Loose Money
+	item.pic = "ArReceipt";
+	let item3 = game.add.sprite(500, 350, "Cash"); //Loose Money
 	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
 	item3.name = "Loose Money";
-	let item4 = game.add.sprite(50, 400, "item"); //Combination
+	item.pic = "Cash";
+	let item4 = game.add.sprite(0, 700, "Combination"); //Combination
 	item4.description = "A slip of paper containing only the digits 2 6 2 9. It appears to be written in a quick, inexact handwriting."
 	item4.name = "Combination";
-	let item5 = game.add.sprite(100, 400, "item"); //Friend 1: Letter to Deceased
+	item.pic = "Combination";
+	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
 	item5.description = "A carefully-folded letter with neat, deliberate writing."
 	item5.name = "Friend 1: Letter to Deceased";
-	let item6 = game.add.sprite(150, 400, "item"); //Friend 2: Letter to Deceased
+	item.pic = "Letter1";
+	let item6 = game.add.sprite(500, 700, "Letter2"); //Friend 2: Letter to Deceased
 	item6.description = "A childishly scribbled note with a few stains on it."
 	item6.name = "Friend 2: Letter to Deceased";
-	let item7 = game.add.sprite(50, 450, "item"); //Friend 3: Letter to Deceased
+	item.pic = "Letter2";
+	let item7 = game.add.sprite(0, 950, "Letter3"); //Friend 3: Letter to Deceased
 	item7.description = "A crumpled letter written with an inexcusable excess of ink."
 	item7.name = "Friend 3: Letter to Deceased";
-	let item8 = game.add.sprite(100, 450, "item"); //Friend 1: Receipt from Bar
+	item.pic = "Letter3";
+	let item8 = game.add.sprite(250, 950, "Receipt1"); //Friend 1: Receipt from Bar
 	item8.description = "A receipt for some light bare fare."
 	item8.name = "Friend 1: Receipt from Bar";
-	let item9 = game.add.sprite(150, 450, "item"); //Friend 3: Receipt from Bar
+	item.pic = "Receipt1";
+	let item9 = game.add.sprite(500, 950, "Receipt2"); //Friend 3: Receipt from Bar
 	item9.description = "A short receipt for a meat pie with tomato sauce."
 	item9.name = "Friend 3: Receipt from Bar";
-	let item10 = game.add.sprite(50, 500, "item"); //Deceased: Receipt from Bar
+	item.pic = "Receipt2";
+	let item10 = game.add.sprite(0, 1200, "Receipt3"); //Deceased: Receipt from Bar
 	item10.description = "This receipt is for enought alcohol to kill a man. I would assume that was the case but for the circumstances."
 	item10.name = "Deceased: Receipt from Bar";
+	item.pic = "Receipt3";
 	
 	//Let's have the inventory have like 4 items rn.
 	this.playerInventory.push(item);
@@ -165,9 +187,7 @@ gameplayState.prototype.create = function(){
 	this.playerInventory.push(item3);
 	this.playerInventory.push(item4);
 	
-	
-	
-	
+
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
 	//Have a group that contains all the items: ALLITEMS
 	let ALLITEMS = game.add.group();
@@ -190,7 +210,9 @@ gameplayState.prototype.create = function(){
 	ALLITEMS.add(itemsH1);
 	ALLITEMS.add(itemsH2);
 	ALLITEMS.add(itemsH3);
-
+	
+	ALLITEMS.visible = false;
+	
 	let BLACK = game.add.sprite(0, 0, "fade_Black");
 	BLACK.alpha = 0;
 	//initialize text for description
@@ -201,6 +223,7 @@ gameplayState.prototype.create = function(){
 			item.origX = item.x;
 			item.origY = item.y;
 			item.inputEnabled = true;
+			item.scale.setTo(0.3, 0.3);
 		});
 	}
 	//Here we check if the player clicked on the sprite, and if so it will call the textbox function
@@ -244,6 +267,7 @@ function swapNotepad(){
 			{
 				this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
 				this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
+				this.notepadStuff.panels[i][0].loadTexture(this.playerInventory[i + this.curNotepadIndex].pic,0,false);
 			}
 		}
 	}
