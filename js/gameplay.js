@@ -21,6 +21,8 @@ gameplayState.prototype.preload = function(){
 	game.load.image("perTwoIcon","assets/Art/croppedIcons/charTwoCropped.png");
 	game.load.image("perThreeIcon","assets/Art/croppedIcons/charThreeCropped.png");
 	game.load.image("fade_Black", "assets/Black.png");
+	game.load.image("arrow","assets/tempArrow.png");
+	
 }
 
 
@@ -33,6 +35,7 @@ gameplayState.prototype.create = function(){
 	this.backGround = game.add.sprite(0,0,"cabAbove");
 
 	this.curNotepadPos = "suspects";
+	this.curNotepadIndex = 0;
 	instantiateNotepad(this);
 	
 	//this.curNotepadPos = "objects";
@@ -119,7 +122,6 @@ gameplayState.prototype.create = function(){
 	this.notepadStuff.visible = !this.notepadStuff.visible;
 	
 	this.playerInventory = [];
-	
 	/* This is where the items will be loaded and added to the scene
 	 * We will probably have to group items based on what level they appear
 	 * unless they are in the players inventroy */
@@ -239,8 +241,8 @@ function swapNotepad(){
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
-				this.notepadStuff.panels[i][1].text = this.playerInventory[i].description;
-				this.notepadStuff.panels[i][2].text = this.playerInventory[i].name;
+				this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
+				this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
 			}
 		}
 	}
@@ -277,7 +279,19 @@ function swapSus(){
 function swapLoc(){
 	this.curNotepadPos = "locations";
 }
-	
+
+function notebookIndexAdd(){
+	if(this.playerInventory.length-2>(this.curNotepadIndex +1 ) && this.curNotepadPos==="objects"){
+		this.curNotepadIndex++;
+	}
+}
+
+function notebookIndexSub(){
+	if(this.curNotepadIndex >0 && this.curNotepadPos==="objects"){
+		this.curNotepadIndex--;
+	}
+}
+
 function instantiateNotepad(that){
 	//add the notebook's bg
 	that.notepadStuff = game.add.group();
@@ -353,10 +367,19 @@ function instantiateNotepad(that){
 		that.notepadStuff.panels.push(temp);
 
 	}
+	let leftArrow = game.add.sprite(40 + 25/2,225 + 70 + 263*2 + 263 + 25/2,"arrow");
+	let rightArrow = game.add.sprite(40 + 670 - 25/2 - 100,225 + 70 + 263*2 + 263 + 25/2,"arrow");
 	
-	//18 char per line; 4 lines.
-	//90 is the size fo the Icon
-		
+	leftArrow.inputEnabled = true;
+	rightArrow.inputEnabled = true;
+	
+	leftArrow.events.onInputDown.add(notebookIndexSub,that);
+	leftArrow.events.onInputDown.add(swapNotepad,that);
+	rightArrow.events.onInputDown.add(notebookIndexAdd,that);
+	rightArrow.events.onInputDown.add(swapNotepad,that);
+	
+	that.notepadStuff.add(leftArrow);
+	that.notepadStuff.add(rightArrow);
 		
 	
 	
