@@ -113,6 +113,7 @@ gameplayState.prototype.create = function(){
 	this.but = game.add.sprite(600,1334-150,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(enableDisableNotepad, this);
+	this.but.events.onInputDown.add(swapNotepad, this);
 
 	
 	for(i=0;i<this.notepadStuff.panels.length;i++)
