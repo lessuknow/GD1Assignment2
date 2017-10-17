@@ -159,6 +159,7 @@ preloadState.prototype.update = function(){
 	
 }
 preloadState.prototype.transition = function(){
+	
 }
 function changeHouse(house){
 	
@@ -170,8 +171,8 @@ function changeHouse(house){
 	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
 	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
-	
-
+	this.level = house.number;
+	this.transition(this);	
 	
 }
 
