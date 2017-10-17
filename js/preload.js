@@ -4,7 +4,7 @@ let preloadState = function(){
 }
 
 preloadState.prototype.preload = function(){
-game.load.image("item","assets/item.png");
+	game.load.image("item","assets/item.png");
 	game.load.image("invTile","assets/invTile.png");
 	game.load.image("bkpk","assets/backpack.png");
 	game.load.image("bkpkMenu","assets/bkpkMenu.png");
@@ -71,11 +71,76 @@ game.load.image("item","assets/item.png");
 }
 
 preloadState.prototype.create = function(){
-	game.state.start("Gameplay");
+//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
+	this.suspects = [];
+	
+	let susOne = {
+		name: "testName",
+		age: 3,
+		race: "testRace",
+		heightWeight: "testheightWeight",
+		hair: "testHair",
+		eyes: "testEyes",
+		infoWantedDescrip: "...",
+		notepadDescrip: "hello",
+		pic: "perOneIcon",
+	};
+		
+	let susTwo = {
+		name: "testName2",
+		age: 5,
+		race: "testRace2",
+		heightWeight: "testheightWeight2",
+		hair: "testHair2",
+		eyes: "testEyes2",
+		infoWantedDescrip: "2...",
+		notepadDescrip: "hello2",
+		pic: "perTwoIcon",
+	};
+		
+	let susThree = {
+		name: "testName3",
+		age: 1,
+		race: "testRace3",
+		heightWeight: "testheightWeight3",
+		hair: "testHair3",
+		eyes: "testEyes3",
+		infoWantedDescrip: "3...",
+		notepadDescrip: "hello3",
+		pic: "perThreeIcon",
+	};
+	
+	this.suspects.push(susOne);
+	this.suspects.push(susTwo);
+	this.suspects.push(susThree);
+	//INFORMATION FOR LOCATION IN NOTEPAD
+	this.locations = [];
+	
+	let locationOne = {
+		name : "locationOne",
+		description : "descriptOne",
+	};
+	
+	let locationTwo = {
+		name : "locationTwo",
+		description : "descriptTwo",
+	};
+	
+	let locationThree = {
+		name : "locationThree",
+		description : "descriptThree",
+	};
+	
+	this.locations.push(locationOne);
+	this.locations.push(locationTwo);
+	this.locations.push(locationThree);
+	game.state.start("Gameplay", true, false, this.suspects, this.locations);
 }
 
 preloadState.prototype.update = function(){
 	
+}
+preloadState.prototype.transition = function(){
 }
 function changeHouse(house){
 	
@@ -87,6 +152,7 @@ function changeHouse(house){
 	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
 	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
+	
 
 	
 }

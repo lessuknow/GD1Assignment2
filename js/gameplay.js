@@ -7,13 +7,16 @@ let gameplayState = function(){
 gameplayState.prototype.preload = function(){
 	
 }
-
+gameplayState.prototype.init = function(sus, loc){
+	this.suspects = sus;
+	this.locations = loc;
+}
 gameplayState.prototype.create = function(){
 	
 	this.backGround = game.add.group();
-	
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
+
 	let ALLITEMS = game.add.group();
 	this.curNotepadPos = "suspects";
 	this.curNotepadIndex = 0;
@@ -28,69 +31,6 @@ gameplayState.prototype.create = function(){
 	
 	//Going to assume that we defualt have suspects open
 	
-	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-	this.suspects = [];
-	
-	let susOne = {
-		name: "testName",
-		age: 3,
-		race: "testRace",
-		heightWeight: "testheightWeight",
-		hair: "testHair",
-		eyes: "testEyes",
-		infoWantedDescrip: "...",
-		notepadDescrip: "hello",
-		pic: "perOneIcon",
-	};
-		
-	let susTwo = {
-		name: "testName2",
-		age: 5,
-		race: "testRace2",
-		heightWeight: "testheightWeight2",
-		hair: "testHair2",
-		eyes: "testEyes2",
-		infoWantedDescrip: "2...",
-		notepadDescrip: "hello2",
-		pic: "perTwoIcon",
-	};
-		
-	let susThree = {
-		name: "testName3",
-		age: 1,
-		race: "testRace3",
-		heightWeight: "testheightWeight3",
-		hair: "testHair3",
-		eyes: "testEyes3",
-		infoWantedDescrip: "3...",
-		notepadDescrip: "hello3",
-		pic: "perThreeIcon",
-	};
-	
-	this.suspects.push(susOne);
-	this.suspects.push(susTwo);
-	this.suspects.push(susThree);
-	//INFORMATINO FOR LOCATION IN NOTEPAD
-	this.locations = [];
-	
-	let locationOne = {
-		name : "locationOne",
-		description : "descriptOne",
-	};
-	
-	let locationTwo = {
-		name : "locationTwo",
-		description : "descriptTwo",
-	};
-	
-	let locationThree = {
-		name : "locationThree",
-		description : "descriptThree",
-	};
-	
-	this.locations.push(locationOne);
-	this.locations.push(locationTwo);
-	this.locations.push(locationThree);
 	
 	
 	this.but = game.add.sprite(600,1334-150,"bkpk");
