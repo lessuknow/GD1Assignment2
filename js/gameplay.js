@@ -288,13 +288,13 @@ gameplayState.prototype.create = function(){
 	house1.level = Robert;
 	house1.events.onInputDown.add(changeHouse, this, 0, house1);
 	house1.scale.setTo(4, 4);
-	let house2 = game.add.sprite(70, 587, "item");
+	let house2 = game.add.sprite(70, 588, "item");
 	house2.cutscene = Charles;
 	house2.level = William;
 	house2.events.onInputDown.add(changeHouse, this, 0, house2);
-	let house3 = game.add.sprite(700, 150, "item");
+	let house3 = game.add.sprite(70,851 , "item");
 	house3.cutscene = Robert;
-	house3.level = Robert;
+	house3.level = Charles;
 	house3.events.onInputDown.add(changeHouse, this, 0, house3);
 
 	this.allHouses = game.add.group();
