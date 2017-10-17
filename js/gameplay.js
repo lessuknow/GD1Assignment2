@@ -170,14 +170,17 @@ gameplayState.prototype.create = function(){
 	this.playerInventory = [];
 	/* This is where the items will be loaded and added to the scene
 	 * We will probably have to group items based on what level they appear
-	 * unless they are in the players inventroy */
+	 * unless they are in the players inventroy 
+	 * .name = Name of the item 
+	 * .pic = The png for the object, useful for future edits
+	 * .events.onInputDown = assign the function it will be using for when it's selected
+	 * */
 
 	let item =  game.add.sprite(0, 350, "ArBottle"); //Arsenic Bottle
 	item.description = "A small glass bottle of rat poison - the vulgar, ubiquitous arsenic. A very likely choice for a poisoning."
 	item.name = "Arsenic Bottle";
 	item.pic = "ArBottle";
 	item.events.onInputDown.add(addToInventory,this,0,item);
-	item.scale.setTo(0.3, 0.3);
 	let item2 = game.add.sprite(250, 350, "ArReceipt"); //Arsenic Receipt
 	item2.description = "A receipt from the local drug store for a dram of rat poison";
 	item2.name = "Arsenic Receipt";
@@ -268,12 +271,6 @@ gameplayState.prototype.create = function(){
 			item.scale.setTo(0.3, 0.3);
 		});
 	}
-	//Here we check if the player clicked on the sprite, and if so it will call the textbox function
-	ALLITEMS.forEach(function(obj){
-		obj.forEach(function(item){
-			item.events.onInputDown.add(showItemDescription, {description: item.description});
-		}, this);
-	});
 	//TESTING FADE
 	let BLACK = game.add.sprite(0, 0, "fade_Black");
 	BLACK.alpha = 0;
@@ -333,6 +330,7 @@ function showItemDescription(){
 function addToInventory(toAdd){
 	this.playerInventory.push(toAdd);
 	console.log("Added "+toAdd.name);
+	descriptionText.text = toAdd.description;
 	toAdd.destroy();
 }
 
