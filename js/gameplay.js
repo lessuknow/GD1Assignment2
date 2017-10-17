@@ -293,6 +293,8 @@ function addToInventory(toAdd){
 function swapNotepad(){
 	
 	if(this.curNotepadPos==="suspects"){
+		this.arrows.visible = false;
+		this.accuseBar.visible = true;
 		for(i =0;i<this.suspects.length;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
@@ -308,6 +310,9 @@ function swapNotepad(){
 		}
 	}
 	else if(this.curNotepadPos==="objects"){
+		
+		this.arrows.visible = true;
+		this.accuseBar.visible = false;
 		for(i=0;i<3;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
@@ -332,6 +337,8 @@ function swapNotepad(){
 	}
 	else
 	{
+		this.arrows.visible = false;
+		this.accuseBar.visible = false;
 		for(i=0;i<3;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
@@ -465,17 +472,24 @@ function instantiateNotepad(that){
 	
 	let accBut = game.add.sprite(40+670/2-150,225 + 70 + 263*2 + 263 + 25/2,"accuseButton");
 	
+	that.arrows = game.add.group();
+	that.accuseBar = game.add.group();
+	
+	
+	that.arrows.add(leftArrow);
+	that.arrows.add(rightArrow);
+	
+	
 	accBut.inputEnabled = true;
 	
 	accBut.events.onInputDown.add(accuse,that);
 	//make sure that this appears only when you open up suspects; arrows for inventory 
 	
-	that.notepadStuff.add(leftArrow);
-	that.notepadStuff.add(rightArrow);
-	that.notepadStuff.add(accBut);
-		
-	
-	
+	//that.notepadStuff.add(leftArrow);
+	//that.notepadStuff.add(rightArrow);
+	that.accuseBar.add(accBut);
+	that.notepadStuff.add(that.accuseBar);
+	that.notepadStuff.add(that.arrows);
 }
 
 function accuse(){
