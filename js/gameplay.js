@@ -323,9 +323,6 @@ function changeHouse(){
 	
 	
 }
-function showItemDescription(){
-	descriptionText.text = this.description;
-}
 
 function addToInventory(toAdd){
 	this.playerInventory.push(toAdd);
