@@ -35,6 +35,8 @@ gameplayState.prototype.preload = function(){
 	game.load.image("Receipt1", "assets/Art/Items_450x500_300dpi/R1.png");
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
+	
+	game.load.image("accuseButton","assets/tempAccuse.png");
 }
 
 
@@ -45,9 +47,10 @@ gameplayState.prototype.create = function(){
 	
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
-
+	let ALLITEMS = game.add.group();
 	this.curNotepadPos = "suspects";
 	this.curNotepadIndex = 0;
+	this.accused = 0;
 	instantiateNotepad(this);
 	
 	//this.curNotepadPos = "objects";
@@ -143,55 +146,61 @@ gameplayState.prototype.create = function(){
 	item.description = "A small glass bottle of rat poison - the vulgar, ubiquitous arsenic. A very likely choice for a poisoning."
 	item.name = "Arsenic Bottle";
 	item.pic = "ArBottle";
+	item.events.onInputDown.add(addToInventory,this,0,item);
 	item.scale.setTo(0.3, 0.3);
 	let item2 = game.add.sprite(250, 350, "ArReceipt"); //Arsenic Receipt
 	item2.description = "A receipt from the local drug store for a dram of rat poison";
 	item2.name = "Arsenic Receipt";
 	item2.pic = "ArReceipt";
+	item2.events.onInputDown.add(addToInventory,this,0,item2);
 	let item3 = game.add.sprite(500, 350, "Cash"); //Loose Money
 	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
 	item3.name = "Loose Money";
 	item3.pic = "Cash";
+	item3.events.onInputDown.add(addToInventory,this,0,item3);
 	let item4 = game.add.sprite(0, 700, "Combination"); //Combination
 	item4.description = "A slip of paper containing only the digits 2 6 2 9. It appears to be written in a quick, inexact handwriting."
 	item4.name = "Combination";
 	item4.pic = "Combination";
+	item4.events.onInputDown.add(addToInventory,this,0,item4);
 	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
 	item5.description = "A carefully-folded letter with neat, deliberate writing."
-	item5.name = "Friend 1: Letter to Deceased";
+	item5.name = "William's letter";
 	item5.pic = "Letter1";
+	item5.events.onInputDown.add(addToInventory,this,0,item5);
 	let item6 = game.add.sprite(500, 700, "Letter2"); //Friend 2: Letter to Deceased
 	item6.description = "A childishly scribbled note with a few stains on it."
-	item6.name = "Friend 2: Letter to Deceased";
+	item6.name = "Charle's letter";
 	item6.pic = "Letter2";
+	item6.events.onInputDown.add(addToInventory,this,0,item6);
 	let item7 = game.add.sprite(0, 950, "Letter3"); //Friend 3: Letter to Deceased
 	item7.description = "A crumpled letter written with an inexcusable excess of ink."
-	item7.name = "Friend 3: Letter to Deceased";
+	item7.name = "Robert's letter";
 	item7.pic = "Letter3";
+	item7.events.onInputDown.add(addToInventory,this,0,item7);
 	let item8 = game.add.sprite(250, 950, "Receipt1"); //Friend 1: Receipt from Bar
 	item8.description = "A receipt for some light bare fare."
-	item8.name = "Friend 1: Receipt from Bar";
+	item8.name = "William's Receipt";
 	item8.pic = "Receipt1";
+	item8.events.onInputDown.add(addToInventory,this,0,item8);
 	let item9 = game.add.sprite(500, 950, "Receipt2"); //Friend 3: Receipt from Bar
 	item9.description = "A short receipt for a meat pie with tomato sauce."
-	item9.name = "Friend 3: Receipt from Bar";
+	item9.name = "Robert's Receipt";
 	item9.pic = "Receipt2";
+	item9.events.onInputDown.add(addToInventory,this,0,item9);
 	let item10 = game.add.sprite(0, 1200, "Receipt3"); //Deceased: Receipt from Bar
-	item10.description = "This receipt is for enought alcohol to kill a man. I would assume that was the case but for the circumstances."
-	item10.name = "Deceased: Receipt from Bar";
+	item10.description = "This receipt's for enough alcohol to kill a man. An odd array of drinks as well."
+	item10.name = "James's Receipt";
 	item10.pic = "Receipt3";
+	item10.events.onInputDown.add(addToInventory,this,0,item10);
 	
 	//Let's have the inventory have like 4 items rn.
-	this.playerInventory.push(item);
-	this.playerInventory.push(item2);
-	this.playerInventory.push(item3);
-	this.playerInventory.push(item4);
-	this.playerInventory.push(item10);
+
 	
 
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
 	//Have a group that contains all the items: ALLITEMS
-	let ALLITEMS = game.add.group();
+	
 	let itemsH1 = game.add.group(); //HOUSE 1: William's House
 	itemsH1.add(item3); //Loose Money
 	itemsH1.add(item4); //Combination
@@ -212,7 +221,7 @@ gameplayState.prototype.create = function(){
 	ALLITEMS.add(itemsH2);
 	ALLITEMS.add(itemsH3);
 	
-	ALLITEMS.visible = false;
+	ALLITEMS.visible = true;
 	
 	let BLACK = game.add.sprite(0, 0, "fade_Black");
 	BLACK.alpha = 0;
@@ -248,6 +257,12 @@ function showItemDescription(){
 	descriptionText.text = this.description;
 }
 
+function addToInventory(toAdd){
+	this.playerInventory.push(toAdd);
+	console.log("Added "+toAdd.name);
+	toAdd.destroy();
+}
+
 function swapNotepad(){
 	
 	if(this.curNotepadPos==="suspects"){
@@ -255,9 +270,13 @@ function swapNotepad(){
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
-				this.notepadStuff.panels[i][1].text = this.suspects[i].notepadDescrip;
-				this.notepadStuff.panels[i][2].text = this.suspects[i].name;
-				this.notepadStuff.panels[i][0].loadTexture(this.suspects[i].pic,0,false);
+			
+					this.notepadStuff.panels[i][0].width = 200;
+					this.notepadStuff.panels[i][0].height = 200;
+					this.notepadStuff.panels[i][1].text = this.suspects[i].notepadDescrip;
+					this.notepadStuff.panels[i][2].text = this.suspects[i].name;
+					this.notepadStuff.panels[i][0].loadTexture(this.suspects[i].pic,0,false);
+				
 			}
 		}
 	}
@@ -269,10 +288,18 @@ function swapNotepad(){
 				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
-				
-				this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
-				this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
-				this.notepadStuff.panels[i][0].loadTexture(this.playerInventory[i + this.curNotepadIndex].pic,0,false);
+				if(this.playerInventory[i + this.curNotepadIndex]!=null)
+				{
+					this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
+					this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
+					this.notepadStuff.panels[i][0].loadTexture(this.playerInventory[i + this.curNotepadIndex].pic,0,false);
+				}
+				else
+				{
+					this.notepadStuff.panels[i][1].text = "";
+					this.notepadStuff.panels[i][2].text = ""
+					this.notepadStuff.panels[i][0].loadTexture("",0,false);
+				}
 			}
 		}
 	}
@@ -378,7 +405,7 @@ function instantiateNotepad(that){
 	{
 		var temp =[];
 		
-		that.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel");
+		var nkPanel = that.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel");
 		//note: 263 is the height of the notebook panel
 		temp.push(that.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon"));
 		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
@@ -389,12 +416,13 @@ function instantiateNotepad(that){
 		var itemDescript = game.add.text(40 + ICON_BORDER*2 + 200, 225 + 62 + 263 * i + ICON_BORDER,tempText,style);
 		temp.push(itemDescript);
 		
-		stylet = { font: "bold 35px Arial", fill: "#fff", align: "center"};
+		stylet = { font: "bold 30px Arial", fill: "#fff", align: "center"};
 		var itemName = game.add.text(40+ICON_BORDER+100,312 + 263*i+3,"file_name",stylet);
 		temp.push(itemName);
 		itemName.anchor.set(0.5,0.5);
 		
 		that.notepadStuff.panels.push(temp);
+		temp.push(nkPanel);
 
 	}
 	let leftArrow = game.add.sprite(40 + 25/2,225 + 70 + 263*2 + 263 + 25/2,"arrow");
@@ -408,13 +436,64 @@ function instantiateNotepad(that){
 	rightArrow.events.onInputDown.add(notebookIndexAdd,that);
 	rightArrow.events.onInputDown.add(swapNotepad,that);
 	
+	let accBut = game.add.sprite(40+670/2-150,225 + 70 + 263*2 + 263 + 25/2,"accuseButton");
+	
+	accBut.inputEnabled = true;
+	
+	accBut.events.onInputDown.add(accuse,that);
+	//make sure that this appears only when you open up suspects; arrows for inventory 
+	
 	that.notepadStuff.add(leftArrow);
 	that.notepadStuff.add(rightArrow);
+	that.notepadStuff.add(accBut);
 		
 	
 	
 }
 
+function accuse(){
+	
+	for(i=0;i<3;i++)
+	{
+		this.notepadStuff.panels[i][0].inputEnabled = true;
+		this.notepadStuff.panels[i][1].inputEnabled = true;
+		this.notepadStuff.panels[i][2].inputEnabled = true;
+		this.notepadStuff.panels[i][3].inputEnabled = true;
+	}
+	this.notepadStuff.panels[0][0].events.onInputDown.add(selectOne,this);
+	this.notepadStuff.panels[0][1].events.onInputDown.add(selectOne,this);
+	this.notepadStuff.panels[0][2].events.onInputDown.add(selectOne,this);
+	this.notepadStuff.panels[0][3].events.onInputDown.add(selectOne,this);
+	
+	this.notepadStuff.panels[1][0].events.onInputDown.add(selectTwo,this);
+	this.notepadStuff.panels[1][1].events.onInputDown.add(selectTwo,this);
+	this.notepadStuff.panels[1][2].events.onInputDown.add(selectTwo,this);
+	this.notepadStuff.panels[1][3].events.onInputDown.add(selectTwo,this);
+	
+	this.notepadStuff.panels[2][0].events.onInputDown.add(selectThree,this);
+	this.notepadStuff.panels[2][1].events.onInputDown.add(selectThree,this);
+	this.notepadStuff.panels[2][2].events.onInputDown.add(selectThree,this);
+	this.notepadStuff.panels[2][3].events.onInputDown.add(selectThree,this);
+}
+
+function finishAccuse(){
+	console.log("you accused them yay");
+}
+
+function selectOne(){
+	this.accused = 1;
+	finishAccuse();
+}
+
+function selectTwo(){
+	this.accused = 2;
+	finishAccuse();
+}
+
+function selectThree(){
+	this.accused = 3;
+	finishAccuse();
+}
 
 gameplayState.prototype.update = function(){
 	if(game.input.mousePointer.isDown)
