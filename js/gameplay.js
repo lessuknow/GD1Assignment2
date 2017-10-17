@@ -107,22 +107,63 @@ gameplayState.prototype.create = function(){
 	this.suspects.push(susOne);
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
-	//INFORMATION FOR THE LOCATIONS IN NOTEPAD
+	//INFORMATINO FOR LOCATION IN NOTEPAD
+	//TESTING FADE
+	let BLACK = game.add.sprite(0, 0, "fade_Black");
+	BLACK.alpha = 0;
+
+	let Charles = game.add.sprite(0,0,"CharlesK");
+	let Robert = game.add.sprite(0, 0, "RobertDi");
+	let William = game.add.sprite(0, 0, "WilliamP");
+
+	Charles.alpha = 0;
+	Robert.alpha = 0;
+	William.alpha = 0;
+
+	let house1 = game.add.sprite(700, 50, "item");
+	house1.cutscene = Charles;
+	house1.level = Robert;
+	let house2 = game.add.sprite(700, 100, "item");
+	house2.cutscene = Robert;
+	let house3 = game.add.sprite(700, 150, "item");
+	house3.cutscene = William;
+
+	let allHouses = game.add.group();
+
+	allHouses.add(house1);
+	allHouses.add(house2);
+	allHouses.add(house3);
+	
+	allHouses.forEach(function(house){
+		house.inputEnabled = true;
+		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene});
+
+	});
+	
 	this.locations = [];
 	
 	let locationOne = {
 		name : "locationOne",
 		description : "descriptOne",
+		cutscene: house1.cutscene,
+		level: house1.level,
+		sprite: "item",
 	};
 	
 	let locationTwo = {
 		name : "locationTwo",
 		description : "descriptTwo",
+		cutscene: house2.cutscene,
+		level: house2.level,
+		sprite: "item",
 	};
 	
 	let locationThree = {
 		name : "locationThree",
 		description : "descriptThree",
+		cutscene: house3.cutscene,
+		level: house3.level,
+		sprite: "item",
 	};
 	
 	this.locations.push(locationOne);
@@ -200,7 +241,11 @@ gameplayState.prototype.create = function(){
 	item10.events.onInputDown.add(addToInventory,this,0,item10);
 	
 	//Let's have the inventory have like 4 items rn.
-
+	this.playerInventory.push(item);
+	this.playerInventory.push(item2);
+	this.playerInventory.push(item3);
+	this.playerInventory.push(item4);
+	this.playerInventory.push(item10);
 	
 
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
@@ -227,9 +272,7 @@ gameplayState.prototype.create = function(){
 	ALLITEMS.add(itemsH3);
 	
 	ALLITEMS.visible = true;
-	
-	let BLACK = game.add.sprite(0, 0, "fade_Black");
-	BLACK.alpha = 0;
+
 	//initialize text for description
 	descriptionText = game.add.text(0, game.world.height - 250, '', {fill: '#ffffff'});
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
@@ -247,29 +290,13 @@ gameplayState.prototype.create = function(){
 			item.events.onInputDown.add(showItemDescription, {description: item.description});
 		}, this);
 	});
-	//TESTING FADE
-	let Charles = game.add.sprite(0,0,"CharlesK");
-	let Robert = game.add.sprite(0, 0, "RobertDi");
-	let William = game.add.sprite(0, 0, "WilliamP");
-	Charles.alpha = 0;
-	Robert.alpha = 0;
-	William.alpha = 0;
-	let house1 = game.add.sprite(700, 50, "item");
-	house1.cutscene = Charles;
-	house1.level = Robert;
-	let house2 = game.add.sprite(700, 100, "item");
-	house2.cutscene = Robert;
-	let house3 = game.add.sprite(700, 150, "item");
-	house3.cutscene = William;
-	let allHouses = game.add.group();
-	allHouses.add(house1);
-	allHouses.add(house2);
-	allHouses.add(house3);
-	allHouses.forEach(function(house){
-		house.inputEnabled = true;
-		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene});
-
-	});
+	if(this.curNotepadPos === "Locations"){
+		for(i = 0; i < 3; i++){
+			for(j = 0; j < this.notepadStuff.panels[i].length; j++){
+				this.notepadStuff.panel[i][0].add(changeHouse, {fading: BLACK, cutscene: this.locations[i].cutscene});
+			}
+		}
+	}
 }
 
 function changeHouse(){
@@ -341,8 +368,14 @@ function swapNotepad(){
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
+				//TESTING OUT BUTTONS IN NOTEPAD
+				this.notepadStuff.panels[i][0].width = 200;
+				this.notepadStuff.panels[i][0].height = 200;
+				
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
+				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
+				this.notepadStuff.panels[i][0].inputEnable = true;
 			}
 		}
 	}
