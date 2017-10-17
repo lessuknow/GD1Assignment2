@@ -50,23 +50,23 @@ gameplayState.prototype.preload = function(){
 
 	game.load.audio("Music", ["assets/Audio/HansomCabBlues.ogg", "assets/Audio/HansomCabBlues.mp3"]);
 
-	game.load.audio("Write1", "assets/Audio/PencilSounds/1.wav");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/2.wav");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/3.wav");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/4.wav");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/5.wav");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/6.wav");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/7.wav");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/8.wav");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/1.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/2.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/3.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/4.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/5.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/6.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/7.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/8.ogg");
 
-	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.wav");
-	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.wav"); //phew
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.wav");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.wav");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.wav");
+	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.ogg");
+	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.ogg"); //phew
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.ogg");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.ogg");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.ogg");
 
-	game.load.audio("Click", "assets/Audio/Other/Click.wav");
-	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.wav");
+	game.load.audio("Click", "assets/Audio/Other/Click.ogg");
+	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
 	
 }
 
