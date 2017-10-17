@@ -26,6 +26,7 @@ gameplayState.prototype.create = function(){
 	// Identify and play music
 	let music = game.add.audio("Music");
 	music.play();
+	music.loopFull();
 	
 	//this.curNotepadPos = "objects";
 	
