@@ -284,13 +284,18 @@ gameplayState.prototype.create = function(){
 	William.alpha = 0;
 
 	let house1 = game.add.sprite(70, 325, "item");
-	house1.cutscene = Charles;
+	house1.cutscene = William;
 	house1.level = Robert;
+	house1.events.onInputDown.add(changeHouse, this, 0, house1);
 	house1.scale.setTo(4, 4);
-	let house2 = game.add.sprite(700, 100, "item");
-	house2.cutscene = Robert;
+	let house2 = game.add.sprite(70, 587, "item");
+	house2.cutscene = Charles;
+	house2.level = William;
+	house2.events.onInputDown.add(changeHouse, this, 0, house2);
 	let house3 = game.add.sprite(700, 150, "item");
-	house3.cutscene = William;
+	house3.cutscene = Robert;
+	house3.level = Robert;
+	house3.events.onInputDown.add(changeHouse, this, 0, house3);
 
 	this.allHouses = game.add.group();
 
@@ -301,26 +306,26 @@ gameplayState.prototype.create = function(){
 	let allHousesTemp = this.allHouses;
 	let notepadTemp = this.notepadStuff;
 	this.allHouses.forEach(function(house){
+		house.fading = BLACK;
 		house.visible = false;
 		house.inputEnabled = true;
-		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene, allHouses: allHousesTemp});
 
 	});
 	//TODO: I want to close the notepad when the level is changed so I am working on that
 	//TODO: Add the other two buttons for the other levels, and center them where they belong
 }
 
-function changeHouse(){
-	/*
-	this.allHouses.forEach(function (house){
-		house.visible = false;
-	});*/
-
-	game.add.tween(this.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(this.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
-	game.add.tween(this.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	game.add.tween(this.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
+function changeHouse(house){
 	
+	this.allHouses.forEach(function (home){
+		home.visible = false;
+	});
+
+	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
+	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
+	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
+
 	
 }
 
