@@ -35,6 +35,12 @@ gameplayState.prototype.preload = function(){
 	game.load.image("Receipt1", "assets/Art/Items_450x500_300dpi/R1.png");
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
+
+	//CUTSCENE PNGS
+	game.load.image("CharlesK", "assets/Art/Charles_Kensington.png");
+	game.load.image("RobertDi", "assets/Art/Robert_DiMarco.png");
+	game.load.image("WilliamP", "assets/Art/William_Patrick_Henry.png");
+	
 }
 
 
@@ -234,16 +240,35 @@ gameplayState.prototype.create = function(){
 		}, this);
 	});
 	//TESTING FADE
-	let level1 = game.add.sprite(700, 50, "item");
-	level1.inputEnabled = true;
-	level1.fading = BLACK;
-	level1.events.onInputDown.add(changeHouse, {fading: BLACK});
+	let Charles = game.add.sprite(0,0,"CharlesK");
+	let Robert = game.add.sprite(0, 0, "RobertDi");
+	let William = game.add.sprite(0, 0, "WilliamP");
+	Charles.alpha = 0;
+	Robert.alpha = 0;
+	William.alpha = 0;
+	let house1 = game.add.sprite(700, 50, "item");
+	house1.cutscene = Charles;
+	let house2 = game.add.sprite(700, 100, "item");
+	house2.cutscene = Robert;
+	let house3 = game.add.sprite(700, 150, "item");
+	house3.cutscene = William;
+	let allHouses = game.add.group();
+	allHouses.add(house1);
+	allHouses.add(house2);
+	allHouses.add(house3);
+	allHouses.forEach(function(house){
+		house.inputEnabled = true;
+		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene});
+
+	});
 }
 
 function changeHouse(){
 	game.add.tween(this.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(this.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 2000);
+	game.add.tween(this.cutscene).to({alpha:0}, 3000, Phaser.Easing.Linear.None, true, 4000);
+	game.add.tween(this.fading).to({alpha:0}, 3000, Phaser.Easing.Linear.None, true, 6000);
 }
-
 function showItemDescription(){
 	descriptionText.text = this.description;
 }
