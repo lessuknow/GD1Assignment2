@@ -133,62 +133,21 @@ gameplayState.prototype.create = function(){
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
 	//INFORMATINO FOR LOCATION IN NOTEPAD
-	//TESTING FADE
-	let BLACK = game.add.sprite(0, 0, "fade_Black");
-	BLACK.alpha = 0;
-
-	let Charles = game.add.sprite(0,0,"CharlesK");
-	let Robert = game.add.sprite(0, 0, "RobertDi");
-	let William = game.add.sprite(0, 0, "WilliamP");
-
-	Charles.alpha = 0;
-	Robert.alpha = 0;
-	William.alpha = 0;
-
-	let house1 = game.add.sprite(700, 50, "item");
-	house1.cutscene = Charles;
-	house1.level = Robert;
-	let house2 = game.add.sprite(700, 100, "item");
-	house2.cutscene = Robert;
-	let house3 = game.add.sprite(700, 150, "item");
-	house3.cutscene = William;
-
-	let allHouses = game.add.group();
-
-	allHouses.add(house1);
-	allHouses.add(house2);
-	allHouses.add(house3);
-	
-	allHouses.forEach(function(house){
-		house.inputEnabled = true;
-		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene});
-
-	});
-	
 	this.locations = [];
 	
 	let locationOne = {
 		name : "locationOne",
 		description : "descriptOne",
-		cutscene: house1.cutscene,
-		level: house1.level,
-		sprite: "item",
 	};
 	
 	let locationTwo = {
 		name : "locationTwo",
 		description : "descriptTwo",
-		cutscene: house2.cutscene,
-		level: house2.level,
-		sprite: "item",
 	};
 	
 	let locationThree = {
 		name : "locationThree",
 		description : "descriptThree",
-		cutscene: house3.cutscene,
-		level: house3.level,
-		sprite: "item",
 	};
 	
 	this.locations.push(locationOne);
@@ -315,20 +274,57 @@ gameplayState.prototype.create = function(){
 			item.events.onInputDown.add(showItemDescription, {description: item.description});
 		}, this);
 	});
-	if(this.curNotepadPos === "Locations"){
-		for(i = 0; i < 3; i++){
-			for(j = 0; j < this.notepadStuff.panels[i].length; j++){
-				this.notepadStuff.panel[i][0].add(changeHouse, {fading: BLACK, cutscene: this.locations[i].cutscene});
-			}
-		}
-	}
+	//TESTING FADE
+	let BLACK = game.add.sprite(0, 0, "fade_Black");
+	BLACK.alpha = 0;
+
+	let Charles = game.add.sprite(0,0,"CharlesK");
+	let Robert = game.add.sprite(0, 0, "RobertDi");
+	let William = game.add.sprite(0, 0, "WilliamP");
+
+	Charles.alpha = 0;
+	Robert.alpha = 0;
+	William.alpha = 0;
+
+	let house1 = game.add.sprite(70, 325, "item");
+	house1.cutscene = Charles;
+	house1.level = Robert;
+	house1.scale.setTo(4, 4);
+	let house2 = game.add.sprite(700, 100, "item");
+	house2.cutscene = Robert;
+	let house3 = game.add.sprite(700, 150, "item");
+	house3.cutscene = William;
+
+	this.allHouses = game.add.group();
+
+	this.allHouses.add(house1);
+	this.allHouses.add(house2);
+	this.allHouses.add(house3);
+
+	let allHousesTemp = this.allHouses;
+	let notepadTemp = this.notepadStuff;
+	this.allHouses.forEach(function(house){
+		house.visible = false;
+		house.inputEnabled = true;
+		house.events.onInputDown.add(changeHouse, {fading: BLACK, cutscene: house.cutscene, allHouses: allHousesTemp});
+
+	});
+	//TODO: I want to close the notepad when the level is changed so I am working on that
+	//TODO: Add the other two buttons for the other levels, and center them where they belong
 }
 
 function changeHouse(){
+	/*
+	this.allHouses.forEach(function (house){
+		house.visible = false;
+	});*/
+
 	game.add.tween(this.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
 	game.add.tween(this.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
 	game.add.tween(this.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	game.add.tween(this.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
+	
+	
 }
 function showItemDescription(){
 	descriptionText.text = this.description;
@@ -345,6 +341,10 @@ function swapNotepad(){
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
+		this.allHouses.forEach(function(house){
+			house.visible = false;
+		});
+		
 		for(i =0;i<this.suspects.length;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
@@ -363,6 +363,10 @@ function swapNotepad(){
 		
 		this.arrows.visible = true;
 		this.accuseBar.visible = false;
+		this.allHouses.forEach(function(house){
+			house.visible = false;
+		});
+		
 		for(i=0;i<3;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
@@ -399,8 +403,12 @@ function swapNotepad(){
 				
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
-				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
+//		this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
 				this.notepadStuff.panels[i][0].inputEnable = true;
+				this.allHouses.forEach(function(house){
+					house.visible = true;
+				});
+				
 			}
 		}
 	}
@@ -411,8 +419,8 @@ function enableDisableNotepad(){
 	for(i=0;i<this.notepadStuff.panels.length;i++)
 		for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
-	
 	this.notepadStuff.visible = !this.notepadStuff.visible;
+
 }
 
 function swapObj(){
@@ -546,6 +554,7 @@ function instantiateNotepad(that){
 	that.accuseBar.add(accBut);
 	that.notepadStuff.add(that.accuseBar);
 	that.notepadStuff.add(that.arrows);
+
 }
 
 function accuse(){
