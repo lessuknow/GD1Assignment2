@@ -44,10 +44,31 @@ gameplayState.prototype.preload = function(){
 	game.load.image("CharlesK", "assets/Art/Charles_Kensington.png");
 	game.load.image("RobertDi", "assets/Art/Robert_DiMarco.png");
 	game.load.image("WilliamP", "assets/Art/William_Patrick_Henry.png");
+
+
+	//AUDIO
+
+	game.load.audio("Music", ["assets/Audio/HansomCabBlues.ogg", "assets/Audio/HansomCabBlues.mp3"]);
+
+	game.load.audio("Write1", "assets/Audio/PencilSounds/1.wav");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/2.wav");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/3.wav");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/4.wav");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/5.wav");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/6.wav");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/7.wav");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/8.wav");
+
+	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.wav");
+	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.wav"); //phew
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.wav");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.wav");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.wav");
+
+	game.load.audio("Click", "assets/Audio/Other/Click.wav");
+	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.wav");
 	
 }
-
-
 
 gameplayState.prototype.create = function(){
 	
@@ -60,6 +81,10 @@ gameplayState.prototype.create = function(){
 	this.curNotepadIndex = 0;
 	this.accused = 0;
 	instantiateNotepad(this);
+
+	// Identify and play music
+	let music = game.add.audio("Music");
+	music.play();
 	
 	//this.curNotepadPos = "objects";
 	
