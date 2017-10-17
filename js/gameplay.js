@@ -60,7 +60,7 @@ gameplayState.prototype.create = function(){
 	
 	//Going to assume that we defualt have suspects open
 	
-	//suspects
+	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 	this.suspects = [];
 	
 	let susOne = {
@@ -102,7 +102,7 @@ gameplayState.prototype.create = function(){
 	this.suspects.push(susOne);
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
-
+	//INFORMATION FOR THE LOCATIONS IN NOTEPAD
 	this.locations = [];
 	
 	let locationOne = {
@@ -124,10 +124,7 @@ gameplayState.prototype.create = function(){
 	this.locations.push(locationTwo);
 	this.locations.push(locationThree);
 	
-	//we're going to use 2 arrays to store a key/value. like a super ghetto dictionary
-	//keys = sprite, values = text
-
-
+	
 	this.but = game.add.sprite(600,1334-150,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(enableDisableNotepad, this);
@@ -183,8 +180,8 @@ gameplayState.prototype.create = function(){
 	item9.name = "Friend 3: Receipt from Bar";
 	item9.pic = "Receipt2";
 	let item10 = game.add.sprite(0, 1200, "Receipt3"); //Deceased: Receipt from Bar
-	item10.description = "This receipt is for enought alcohol to kill a man. I would assume that was the case but for the circumstances."
-	item10.name = "Deceased: Receipt from Bar";
+	item10.description = "There's enough alcohol to kill a man. I would assume that was the case but for the circumstances."
+	item10.name = "Deceased Bar Receipt";
 	item10.pic = "Receipt3";
 	
 	//Let's have the inventory have like 4 items rn.
@@ -248,6 +245,7 @@ gameplayState.prototype.create = function(){
 	William.alpha = 0;
 	let house1 = game.add.sprite(700, 50, "item");
 	house1.cutscene = Charles;
+	house1.level = Robert;
 	let house2 = game.add.sprite(700, 100, "item");
 	house2.cutscene = Robert;
 	let house3 = game.add.sprite(700, 150, "item");
@@ -265,9 +263,9 @@ gameplayState.prototype.create = function(){
 
 function changeHouse(){
 	game.add.tween(this.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(this.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 2000);
-	game.add.tween(this.cutscene).to({alpha:0}, 3000, Phaser.Easing.Linear.None, true, 4000);
-	game.add.tween(this.fading).to({alpha:0}, 3000, Phaser.Easing.Linear.None, true, 6000);
+	game.add.tween(this.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
+	game.add.tween(this.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
+	game.add.tween(this.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
 }
 function showItemDescription(){
 	descriptionText.text = this.description;
