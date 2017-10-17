@@ -13,11 +13,11 @@ gameplayState.prototype.init = function(sus, loc){
 }
 gameplayState.prototype.create = function(){
 	
+	this.level = 0;
 	this.backGround = game.add.group();
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
 
-	let ALLITEMS = game.add.group();
 	this.curNotepadPos = "suspects";
 	this.curNotepadIndex = 0;
 	this.accused = 0;
@@ -132,17 +132,18 @@ gameplayState.prototype.create = function(){
 	itemsH3.add(item2);//Arsenic Receipt
 	itemsH3.add(item7); //Letter 3
 
-	ALLITEMS.add(itemsH1);
-	ALLITEMS.add(itemsH2);
-	ALLITEMS.add(itemsH3);
+	this.ALLITEMS = game.add.group();
+	this.ALLITEMS.add(itemsH1);
+	this.ALLITEMS.add(itemsH2);
+	this.ALLITEMS.add(itemsH3);
 	
-	ALLITEMS.visible = true;
+	this.ALLITEMS.visible = true;
 
 	//initialize text for description
 	descriptionText = game.add.text(0, game.world.height - 250, '', {fill: '#ffffff'});
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
-	for(var i = 0, len = ALLITEMS.children.length; i < len; i++){
-		ALLITEMS.children[i].forEach(function(item){
+	for(var i = 0, len = this.ALLITEMS.children.length; i < len; i++){
+		this.ALLITEMS.children[i].forEach(function(item){
 			item.origX = item.x;
 			item.origY = item.y;
 			item.inputEnabled = true;
@@ -162,15 +163,18 @@ gameplayState.prototype.create = function(){
 	William.alpha = 0;
 
 	let house1 = game.add.sprite(70, 325, "item");
+	house1.number = 1;
 	house1.cutscene = William;
 	house1.level = Robert;
 	house1.events.onInputDown.add(changeHouse, this, 0, house1);
 	house1.scale.setTo(4, 4);
 	let house2 = game.add.sprite(70, 588, "item");
+	house2.number = 2;
 	house2.cutscene = Charles;
 	house2.level = William;
 	house2.events.onInputDown.add(changeHouse, this, 0, house2);
 	let house3 = game.add.sprite(70,851 , "item");
+	house3.number = 3;
 	house3.cutscene = Robert;
 	house3.level = Charles;
 	house3.events.onInputDown.add(changeHouse, this, 0, house3);
@@ -194,6 +198,10 @@ gameplayState.prototype.create = function(){
 }
 
 
+gameplayState.prototype.transition = function(){
+	console.log("it worked " + this.level);
+	
+}
 gameplayState.prototype.update = function(){
 	if(game.input.mousePointer.isDown)
 	{
