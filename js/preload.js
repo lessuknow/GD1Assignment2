@@ -8,15 +8,10 @@ let preloadState = function(){
 }
 
 preloadState.prototype.preload = function(){
-	game.load.image("item","assets/item.png");
-	game.load.image("invTile","assets/invTile.png");
-	game.load.image("bkpkMenu","assets/bkpkMenu.png");
-	game.load.image("scrollTile","assets/scrollTile.png");
 	game.load.image("bkpk","assets/Art/Notebook_200x200.png");
-	game.load.image("ntbkMenu","assets/notebookMenu.png");
-	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect.png");
+	game.load.image("ntbkMenu","assets/notebookmenu2_720.png");
+	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect2.png");
 	game.load.image("ntbkPanel","assets/notebookPanel.png");
-	game.load.image("tempIcon","assets/tempIcon.png");
 	game.load.image("cabAbove","assets/Art/Cab_750x1334.png");
 	game.load.image("cabBg","assets/Art/Cab_Background_750x1334.png");
 	game.load.image("perOneIcon","assets/Art/croppedIcons/charOneCropped.png");
