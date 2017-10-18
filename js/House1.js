@@ -1,14 +1,16 @@
 let House1 = function(){
 }
-House1.prototype.init = function(sus, loc, houses, inv){
+House1.prototype.init = function(sus, loc, notepad, inv){
 	this.suspects = sus;
 	this.locations = loc;
-	this.allHouses = houses;
+	this.notepadStuff = notepad;
 	this.playerInventory = inv;
+	console.log(this.playerInventory);
+	console.log(inv[0].name);
 }
 House1.prototype.preload = function(){
 }
-House1.prototype.create = function(){
+House1.prototype.create = function(){ 
 	this.houseNumber = 1;
 	this.backGround = game.add.group();
 	this.backGround = game.add.sprite(0, 0, "cabBg");
@@ -35,7 +37,7 @@ House1.prototype.create = function(){
 	item4.events.onInputDown.add(addToInventory,this,0,item4);
 	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
 	item5.description = "A carefully-folded letter with neat, deliberate writing."
-	item5.name = "William's letter";
+	item5.name = "William's letter"; 
 	item5.pic = "Letter1";
 	item5.events.onInputDown.add(addToInventory,this,0,item5);
 	
@@ -50,12 +52,11 @@ House1.prototype.create = function(){
 	
 	this.notepadStuff.visible = !this.notepadStuff.visible;
 	this.itemsH1.forEach(function(item){
+		item.scale.setTo(0.3, 0.3);
 		item.visible = true;
 		item.inputEnabled = true;
 		console.log("hi");
 	});
-
-	
 }
 House1.prototype.update = function(){
 }

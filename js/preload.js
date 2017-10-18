@@ -71,27 +71,44 @@ preloadState.prototype.preload = function(){
 	
 }
 
+var turn1;
+var turn2;
+var turn3;
+
+var Write1;
+var Write2;
+var Write3;
+var Write4;
+var Write5;
+var Write6;
+var Write7;
+var Write8;
+
+var pageturns;
+var scribbles;
+
 preloadState.prototype.create = function(){
+	this.playerInventory = [];
+//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 
-	this.turn1 = game.add.audio("Turn1");
-	this.turn2 = game.add.audio("Turn2");
-	this.turn3 = game.add.audio("Turn3");
+	turn1 = game.add.audio("Turn1");
+	turn2 = game.add.audio("Turn2");
+	turn3 = game.add.audio("Turn3");
 
-	this.Write1 = game.add.audio("Write1");
-	this.Write2 = game.add.audio("Write2");
-	this.Write3 = game.add.audio("Write3");
-	this.Write4 = game.add.audio("Write4");
-	this.Write5 = game.add.audio("Write5");
-	this.Write6 = game.add.audio("Write6");
-	this.Write7 = game.add.audio("Write7");
-	this.Write8 = game.add.audio("Write8");
+	Write1 = game.add.audio("Write1");
+	Write2 = game.add.audio("Write2");
+	Write3 = game.add.audio("Write3");
+	Write4 = game.add.audio("Write4");
+	Write5 = game.add.audio("Write5");
+	Write6 = game.add.audio("Write6");
+	Write7 = game.add.audio("Write7");
+	Write8 = game.add.audio("Write8");
 
 	// arrays of sounds for random playback
-	this.pageturns = [this.turn1, this.turn2, this.turn3];
-	this.scribbles = [this.Write1, this.Write2, this.Write3, this.Write4, this.Write5, this.Write6, this.Write7, this.Write8];
+	pageturns = [turn1, turn2, turn3];
+	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-
 	this.suspects = [];
 	
 	let susOne = {
@@ -116,22 +133,29 @@ preloadState.prototype.create = function(){
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
 	//INFORMATION FOR LOCATION IN NOTEPAD
+
 	this.locations = [];
 	
 	let locationOne = {
-		name : "",
+		name : " ",
 		description : "The house of William Patrick Henry",
+		sprite: "item",
+		number: 1,
 	};
 	
 	let locationTwo = {
-		name : "",
+		name : " ",
 		description : "The house of Charles Kensington",
+		sprite: "item",
+		number: 2,
 	};
 	
 	let locationThree = {
-		name : "",
+		name : " ",
 		description : "The house of Robert DiMarco",
-	};
+		sprite: "item",
+		number: 3,
+	}
 	
 	this.locations.push(locationOne);
 	this.locations.push(locationTwo);
@@ -143,20 +167,46 @@ preloadState.prototype.update = function(){
 	
 }
 preloadState.prototype.transition = function(){
+	console.log("it worked " + this.houseNumber);
+	if(this.houseNumber === 1){
+		console.log("this.game.state.start(HOUSE 1)");
+		game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
+	}
+	else if(this.houseNumber === 2)
+		console.log("this.game.state.start(HOUSE 2)");
+	else if(this.houseNumber === 3)
+		console.log("this.game.state.starts(HOUSE 3)");
 	
 }
-function changeHouse(house){
-	
-	this.allHouses.forEach(function (home){
-		home.visible = false;
-	});
+function changeHouse(){
+	this.BLACK = game.add.sprite(0, 0, "fade_Black");
+	this.BLACK.alpha = 0;
+	if(this.number === 1){
+		this.scene = game.add.sprite(0,0,"WilliamP");
+		this.scene.alpha = 0;
+	}else if(this.number == 2){
+		this.scene = game.add.sprite(0, 0, "CharlesK");
+		this.scene.alpha = 0;
+	}else{
+		this.scene = game.add.sprite(0, 0, "RobertDi");
+		this.scene.alpha = 0;
+	}
 
-	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
-	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
-	this.level = house.number;
-	this.transition(this);	
+	game.add.tween(this.BLACK).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
+	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
+	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
+	tween.onComplete.add(function(){
+		console.log("it worked " + this.houseNumber);
+		if(this.number === 1){
+			console.log("this.game.state.start(HOUSE 1)");
+			game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.playerInventory);
+		}
+		else if(this.number === 2)
+			console.log("this.game.state.start(HOUSE 2)");
+		else if(this.number === 3)
+			console.log("this.game.state.starts(HOUSE 3)");
+	}, this);
 	
 }
 
@@ -165,10 +215,21 @@ function addToInventory(toAdd){
 	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.destroy();
+
+	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
+	soundToPlay.play();
+
 }
 
 function swapNotepad(){
-	
+	for(i = 0; i < 3; i++){
+		this.notepadStuff.panels[i][0].events.onInputDown.removeAll();
+	}
+
+	// Make a sound
+	let soundToPlay2 = pageturns[Math.floor(Math.random()*pageturns.length)];
+	soundToPlay2.play();
+
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
@@ -235,10 +296,8 @@ function swapNotepad(){
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
 				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
-				this.notepadStuff.panels[i][0].inputEnable = true;
-				this.allHouses.forEach(function(house){
-					house.visible = true;
-				});
+				this.notepadStuff.panels[i][0].inputEnabled = true;
+				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: this.locations[i].number});
 				
 			}
 		}
@@ -414,7 +473,12 @@ function accuse(){
 }
 
 function finishAccuse(acc){
-	console.log("you accused " + acc + "yay");
+	if(acc === 3){
+		console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
+	}
+	else{
+		console.log("You put an innocent man behind bars...(FADE TO BLACK, DISPLAY TEXT, AND A LARGE GAME OVER UNDERNEATH IT.  KEEP THIS AS AN END SCREEN, MAYBE A RESTART BUTTON)");
+	}
 }
 
 function selectOne(){
