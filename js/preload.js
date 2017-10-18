@@ -48,7 +48,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
 
-	game.load.image("accuseButton","assets/tempAccuse.png");
+	game.load.image("accuseButton","assets/Art/Accusement.jpg");
 
 	game.load.image("titleText", "assets/title.png");
 	
@@ -231,17 +231,13 @@ function changeHouse(){
 	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
 	tween.onComplete.add(function(){
-		console.log("it worked " + this.number);
 		if(this.number === 1){
-			console.log("this.game.state.start(HOUSE 1)");
 			game.state.start("House1", false, true);
 		}
 		else if(this.number === 2){
-			console.log("this.game.state.start(HOUSE 2)");
 			game.state.start("House2", false, true);
 		}
 		else if(this.number === 3){
-			console.log("this.game.state.starts(HOUSE 3)");
 			game.state.start("House3", false, true);
 		}
 	}, this);
@@ -250,7 +246,6 @@ function changeHouse(){
 
 function addToInventory(toAdd){
 	playerInventory.push(toAdd);
-	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.inputEnabled = false;
 	toAdd.destroy();
@@ -555,7 +550,6 @@ function finishAccuse(acc){
 		screen.inputEnabled = true;
 		
 		
-		//console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
 	}
 	else if(acc===1){
 			
