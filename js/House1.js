@@ -12,7 +12,7 @@ House1.prototype.create = function(){
 	this.accused = 0;
 	
 	instantiateNotepad(this);
-	this.but = game.add.sprite(600,1334-150,"bkpk");
+	this.but = game.add.sprite(600,1334-175,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(enableDisableNotepad, this);
 	this.but.events.onInputDown.add(swapNotepad, this);
