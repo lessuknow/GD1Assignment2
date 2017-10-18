@@ -51,18 +51,18 @@ preloadState.prototype.preload = function(){
 
 	game.load.audio("Write1", "assets/Audio/PencilSounds/1.ogg");
 	game.load.audio("Write2", "assets/Audio/PencilSounds/2.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/3.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/4.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/5.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/6.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/7.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/8.ogg");
+	game.load.audio("Write3", "assets/Audio/PencilSounds/3.ogg");
+	game.load.audio("Write4", "assets/Audio/PencilSounds/4.ogg");
+	game.load.audio("Write5", "assets/Audio/PencilSounds/5.ogg");
+	game.load.audio("Write6", "assets/Audio/PencilSounds/6.ogg");
+	game.load.audio("Write7", "assets/Audio/PencilSounds/7.ogg");
+	game.load.audio("Write8", "assets/Audio/PencilSounds/8.ogg");
 
 	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.ogg");
 	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.ogg"); //phew
 	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.ogg");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.ogg");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.ogg");
+	game.load.audio("Turn2", "assets/Audio/PaperSounds/PageTurn2.ogg");
+	game.load.audio("Turn3", "assets/Audio/PaperSounds/PageTurn3.ogg");
 
 	game.load.audio("Click", "assets/Audio/Other/Click.ogg");
 	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
@@ -203,6 +203,11 @@ function addToInventory(toAdd){
 
 function swapNotepad(){
 	
+	// Make a sound
+	let soundToPlay2 = pageTurns[Math.floor(Math.random()*pageTurns.length)];
+	soundToPlay2.play();
+
+
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
