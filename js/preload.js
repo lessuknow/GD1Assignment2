@@ -71,8 +71,44 @@ preloadState.prototype.preload = function(){
 	
 }
 
+var turn1;
+var turn2;
+var turn3;
+var Write1;
+var Write2;
+var Write3;
+var Write4;
+var Write5;
+var Write6;
+var Write7;
+var Write8;
+var scribbles = [];
+var pageTurns = [];
+
 preloadState.prototype.create = function(){
+<<<<<<< HEAD
+
+	// Adding audio from preload
+	turn1 = game.add.audio("Turn1");
+	turn2 = game.add.audio("Turn2");
+	turn3 = game.add.audio("Turn3");
+
+	Write1 = game.add.audio("Write1");
+	Write2 = game.add.audio("Write2");
+	Write3 = game.add.audio("Write3");
+	Write4 = game.add.audio("Write4");
+	Write5 = game.add.audio("Write5");
+	Write6 = game.add.audio("Write6");
+	Write7 = game.add.audio("Write7");
+	Write8 = game.add.audio("Write8");
+
+	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
+	pageTurns = [turn1, turn2, turn3];
+
+	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
+=======
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
+>>>>>>> d64b1c09d4d54fb9d059ccbbf0d66bc694c27c68
 	this.suspects = [];
 	
 	let susOne = {
@@ -165,6 +201,9 @@ function addToInventory(toAdd){
 	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.destroy();
+	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
+	soundToPlay.play();
+	// Write1.play();
 }
 
 function swapNotepad(){
