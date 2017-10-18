@@ -75,6 +75,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("LetterOneScreen", "assets/Art/LetterScreens/Letter1Screen.jpg");
 	game.load.image("LetterTwoScreen", "assets/Art/LetterScreens/Letter2Screen.jpg");
 	game.load.image("LetterThreeScreen", "assets/Art/LetterScreens/Letter3Screen.jpg");
+	game.load.image("introScene","assets/Art/IntroCutScene.jpg");
 	
 	
 }
@@ -171,8 +172,18 @@ preloadState.prototype.create = function(){
 
 function fade(){
 	
-	let tween = game.add.tween(this.backGround).to({alpha:0}, 0, "Linear" , true, 0);
-	tween.onComplete.add(move,this);
+	game.add.tween(this.backGround).to({alpha:0}, 0, "Linear" , true, 0);
+	
+	this.tempImage = game.add.sprite(0,0,"introScene");
+	this.tempImage.alpha = 0;
+	
+	let tween = game.add.tween(this.tempImage).to({alpha:1}, 2000, "Linear" , true, 2000);
+	tween.onComplete.add(fadeTwo,this);
+}
+
+function fadeTwo(){
+	let tween = game.add.tween(this.tempImage).to({alpha:0}, 2000, "Linear" , true, 8000);
+	tween.onComplete.add(move,this);	
 }
 
 function move(){
@@ -294,16 +305,15 @@ function swapNotepad(){
 		
 		for(i =0;i<suspects.length;i++)
 		{
-			for(j=0;j<this.notepadStuff.panels[i].length;j++)
-			{
 			
-					this.notepadStuff.panels[i][0].width = 200;
-					this.notepadStuff.panels[i][0].height = 200;
 					this.notepadStuff.panels[i][1].text = suspects[i].notepadDescrip;
 					this.notepadStuff.panels[i][2].text = suspects[i].name;
 					this.notepadStuff.panels[i][0].loadTexture(suspects[i].pic,0,false);
+			
+					this.notepadStuff.panels[i][0].width = 200;
+					this.notepadStuff.panels[i][0].height = 200;
 				
-			}
+			
 		}
 	}
 	else if(this.curNotepadPos==="objects"){
@@ -313,11 +323,9 @@ function swapNotepad(){
 		
 		for(i=0;i<3;i++)
 		{
-			for(j=0;j<this.notepadStuff.panels[i].length;j++)
-			{
+			
 				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
-				this.notepadStuff.panels[i][0].width = 200;
-				this.notepadStuff.panels[i][0].height = 200;
+			
 				if(playerInventory[i + this.curNotepadIndex]!=null)
 				{
 					this.notepadStuff.panels[i][1].text = playerInventory[i + this.curNotepadIndex].description;
@@ -330,7 +338,9 @@ function swapNotepad(){
 					this.notepadStuff.panels[i][2].text = ""
 					this.notepadStuff.panels[i][0].loadTexture("",0,false);
 				}
-			}
+				this.notepadStuff.panels[i][0].width = 200;
+				this.notepadStuff.panels[i][0].height = 200;
+			
 		}
 	}
 	else
@@ -339,11 +349,8 @@ function swapNotepad(){
 		this.accuseBar.visible = false;
 		for(i=0;i<3;i++)
 		{
-			for(j=0;j<this.notepadStuff.panels[i].length;j++)
-			{
+			
 				//TESTING OUT BUTTONS IN NOTEPAD
-				this.notepadStuff.panels[i][0].width = 200;
-				this.notepadStuff.panels[i][0].height = 200;
 				
 				this.notepadStuff.panels[i][1].text = locations[i].description;
 				this.notepadStuff.panels[i][2].text = locations[i].name;
@@ -351,7 +358,9 @@ function swapNotepad(){
 				this.notepadStuff.panels[i][0].inputEnabled = true;
 				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: locations[i].number});
 				
-			}
+			
+				this.notepadStuff.panels[i][0].width = 200;
+				this.notepadStuff.panels[i][0].height = 200;
 		}
 	}
 
