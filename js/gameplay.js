@@ -76,7 +76,7 @@ gameplayState.prototype.create = function(){
 	item7.pic = "Letter3";
 	item7.events.onInputDown.add(addToInventory,this,0,item7);
 	let item8 = game.add.sprite(250, 950, "Receipt1"); //Friend 1: Receipt from Bar
-	item8.description = "A receipt for some light bare fare."
+	item8.description = "A receipt for some light bar fare."
 	item8.name = "William's Receipt";
 	item8.pic = "Receipt1";
 	item8.events.onInputDown.add(addToInventory,this,0,item8);
@@ -116,8 +116,8 @@ gameplayState.prototype.create = function(){
 
 	//initialize text for description
 	
-	var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
-	descriptionText = game.add.text(0, game.world.height - 250, '', style);
+	var style = { font: "bold 30px Arial", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 500};
+	descriptionText = game.add.text(125, game.world.height - 165, '', style);
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
 	for(var i = 0, len = this.ALLITEMS.children.length; i < len; i++){
 		this.ALLITEMS.children[i].forEach(function(item){
