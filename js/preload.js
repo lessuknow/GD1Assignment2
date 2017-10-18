@@ -77,6 +77,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("LetterThreeScreen", "assets/Art/LetterScreens/Letter3Screen.jpg");
 	game.load.image("introScene","assets/Art/IntroCutScene.jpg");
 	
+	game.load.image("ripChar","assets/Art/GameOverCharles.jpg");
+	game.load.image("ripWil","assets/Art/GameOverWilliam.jpg");
+	game.load.image("win","assets/Art/VictoryScene.jpg");
 	
 }
 
@@ -535,10 +538,23 @@ function accuse(){
 
 function finishAccuse(acc){
 	if(acc === 3){
-		console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
+		
+		let screen = game.add.sprite(0,0,"win");
+		screen.inputEnabled = true;
+		
+		
+		//console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
 	}
-	else{
-		console.log("You put an innocent man behind bars...(FADE TO BLACK, DISPLAY TEXT, AND A LARGE GAME OVER UNDERNEATH IT.  KEEP THIS AS AN END SCREEN, MAYBE A RESTART BUTTON)");
+	else if(acc===1){
+			
+		let screen = game.add.sprite(0,0,"ripWil");
+		screen.inputEnabled = true;
+	}
+	else
+	{
+			
+		let screen = game.add.sprite(0,0,"ripChar");
+		screen.inputEnabled = true;
 	}
 }
 
