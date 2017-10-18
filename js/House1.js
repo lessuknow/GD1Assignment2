@@ -5,8 +5,11 @@ House1.prototype.init = function(sus, loc, notepad, inv){
 	this.locations = loc;
 	this.notepadStuff = notepad;
 	this.playerInventory = inv;
-	console.log(this.playerInventory);
-	console.log(inv[0].name);
+	
+	
+	
+	//console.log(this.playerInventory);
+	//console.log(inv[0].name);
 }
 House1.prototype.preload = function(){
 }

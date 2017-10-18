@@ -12,6 +12,7 @@ gameplayState.prototype.init = function(sus, loc){
 	this.locations = loc;
 }
 gameplayState.prototype.create = function(){
+	this.playerInventory = [];
 	
 	this.houseNumber = 0;
 	this.backGround = game.add.group();
