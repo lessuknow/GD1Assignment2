@@ -414,7 +414,12 @@ function accuse(){
 }
 
 function finishAccuse(acc){
-	console.log("you accused " + acc + "yay");
+	if(acc === 3){
+		console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
+	}
+	else{
+		console.log("You put an innocent man behind bars...(FADE TO BLACK, DISPLAY TEXT, AND A LARGE GAME OVER UNDERNEATH IT.  KEEP THIS AS AN END SCREEN, MAYBE A RESTART BUTTON)");
+	}
 }
 
 function selectOne(){
