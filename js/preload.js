@@ -10,10 +10,9 @@ let preloadState = function(){
 preloadState.prototype.preload = function(){
 	game.load.image("item","assets/item.png");
 	game.load.image("invTile","assets/invTile.png");
-	game.load.image("bkpk","assets/backpack.png");
 	game.load.image("bkpkMenu","assets/bkpkMenu.png");
 	game.load.image("scrollTile","assets/scrollTile.png");
-	game.load.image("ntbk","assets/notebook.png");
+	game.load.image("bkpk","assets/Art/Notebook_200x200.png");
 	game.load.image("ntbkMenu","assets/notebookMenu.png");
 	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect.png");
 	game.load.image("ntbkPanel","assets/notebookPanel.png");
@@ -23,6 +22,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("perOneIcon","assets/Art/croppedIcons/charOneCropped.png");
 	game.load.image("perTwoIcon","assets/Art/croppedIcons/charTwoCropped.png");
 	game.load.image("perThreeIcon","assets/Art/croppedIcons/charThreeCropped.png");
+	game.load.image("LocOneIcon","assets/Art/CroppedScenes1_750x750.png");
+	game.load.image("LocTwoIcon","assets/Art/CroppedScenes2_750x750.png");
+	game.load.image("LocThreeIcon","assets/Art/CroppedScenes3_750x750.png");
 	game.load.image("fade_Black", "assets/Black.png");
 
 	game.load.image("arrow","assets/tempArrow.png");
@@ -36,6 +38,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("L1_5", "assets/Art/S1-L3.png");
 	game.load.image("L1_6", "assets/Art/S1-L2.png");
 	game.load.image("L1_8", "assets/Art/S1-L1.png");
+	game.load.image("Leftarrow","assets/Art/Left_100x100.png");
+	game.load.image("Rightarrow","assets/Art/Right_100x100.png");
+
 	//THE OBJECTS OF THE GAME
 	game.load.image("ArBottle", "assets/Art/Items_450x500_300dpi/Arsenic-Bottle.png");
 	game.load.image("ArReceipt", "assets/Art/Items_450x500_300dpi/Arsenic-Receipt.png");
@@ -200,7 +205,7 @@ function fadeTwo(){
 }
 
 function move(){
-	game.state.start("Gameplay", true, false);
+	game.state.start("House1", true, false);
 }
 
 preloadState.prototype.update = function(){
@@ -485,8 +490,8 @@ function instantiateNotepad(that){
 		temp.push(nkPanel);
 
 	}
-	let leftArrow = game.add.sprite(40 + 25/2,225 + 70 + 263*2 + 263 + 25/2,"arrow");
-	let rightArrow = game.add.sprite(40 + 670 - 25/2 - 100,225 + 70 + 263*2 + 263 + 25/2,"arrow");
+	let leftArrow = game.add.sprite(40 + 25/2,225 + 70 + 263*2 + 250,"Leftarrow");
+	let rightArrow = game.add.sprite(40 + 670 - 25/2 - 100,225 + 70 + 263*2 + 250,"Rightarrow");
 	
 	leftArrow.inputEnabled = true;
 	rightArrow.inputEnabled = true;
