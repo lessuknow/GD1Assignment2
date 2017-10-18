@@ -112,10 +112,12 @@ gameplayState.prototype.create = function(){
 	this.ALLITEMS.add(itemsH2);
 	this.ALLITEMS.add(itemsH3);
 	
-	this.ALLITEMS.visible = false;
+	//this.ALLITEMS.visible = false;
 
 	//initialize text for description
-	descriptionText = game.add.text(0, game.world.height - 250, '', {fill: '#ffffff'});
+	
+	var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
+	descriptionText = game.add.text(0, game.world.height - 250, '', style);
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
 	for(var i = 0, len = this.ALLITEMS.children.length; i < len; i++){
 		this.ALLITEMS.children[i].forEach(function(item){
@@ -186,17 +188,7 @@ gameplayState.prototype.transition = function(){
 gameplayState.prototype.update = function(){
 	if(game.input.mousePointer.isDown)
 	{
-		/*
-		if(game.input.mousePointer.x <750-190 && this.bkpkOpen==true){
-			bkpkOpen = false;
-			this.bkpkMenu.visible = false;	
-			this.scrollUp.visible = false;
-			this.scrollDown.visible = false;
-			this.invTiles.visible = false;
-	
-			
-		}
-		*/
+		
 	}
 }
 
