@@ -6,6 +6,9 @@
 	<script type="text/javascript" src="js/phaser.min.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
 	<script type="text/javascript" src="js/gameplay.js"></script>
+	<script type="text/javascript" src="js/House1.js"></script>
+	<script type="text/javascript" src="js/House2.js"></script>
+	<script type="text/javascript" src="js/House3.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -20,6 +23,9 @@
 
 	game.state.add("Preload",preloadState);
 	game.state.add("Gameplay",gameplayState);
+	game.state.add("House1", House1);
+	game.state.add("House2", House2);
+	game.state.add("House3", House3);
 	game.state.start("Preload");
 
 
