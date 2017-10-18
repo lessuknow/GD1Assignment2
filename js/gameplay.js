@@ -46,7 +46,6 @@ gameplayState.prototype.create = function(){
 	
 	this.notepadStuff.visible = !this.notepadStuff.visible;
 	
-	this.playerInventory = [];
 	/* This is where the items will be loaded and added to the scene
 	 * We will probably have to group items based on what level they appear
 	 * unless they are in the players inventroy 
@@ -141,18 +140,18 @@ gameplayState.prototype.create = function(){
 	house1.number = 1;
 	house1.cutscene = William;
 	house1.level = Robert;
-	house1.events.onInputDown.add(changeHouse, this, 0, house1);
+	//house1.events.onInputDown.add(changeHouse, this, 0, house1);
 	house1.scale.setTo(4, 4);
 	let house2 = game.add.sprite(70, 588, "item");
 	house2.number = 2;
 	house2.cutscene = Charles;
 	house2.level = William;
-	house2.events.onInputDown.add(changeHouse, this, 0, house2);
+	//house2.events.onInputDown.add(changeHouse, this, 0, house2);
 	let house3 = game.add.sprite(70,851 , "item");
 	house3.number = 3;
 	house3.cutscene = Robert;
 	house3.level = Charles;
-	house3.events.onInputDown.add(changeHouse, this, 0, house3);
+	//house3.events.onInputDown.add(changeHouse, this, 0, house3);
 
 	this.allHouses = game.add.group();
 
@@ -175,7 +174,7 @@ gameplayState.prototype.transition = function(){
 	console.log("it worked " + this.houseNumber);
 	if(this.houseNumber === 1){
 		console.log("this.game.state.start(HOUSE 1)");
-		game.state.start("House1", false, false, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
+		game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
 	}
 	else if(this.houseNumber === 2)
 		console.log("this.game.state.start(HOUSE 2)");

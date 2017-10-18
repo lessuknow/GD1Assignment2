@@ -71,6 +71,7 @@ preloadState.prototype.preload = function(){
 }
 
 preloadState.prototype.create = function(){
+	this.playerInventory = [];
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 	this.suspects = [];
 	
@@ -114,21 +115,31 @@ preloadState.prototype.create = function(){
 	this.suspects.push(susTwo);
 	this.suspects.push(susThree);
 	//INFORMATION FOR LOCATION IN NOTEPAD
+
 	this.locations = [];
 	
 	let locationOne = {
 		name : "locationOne",
 		description : "descriptOne",
+		sprite: "item",
+		number: 1,
+		cutscene: this.William,
 	};
 	
 	let locationTwo = {
 		name : "locationTwo",
 		description : "descriptTwo",
+		sprite: "item",
+		number: 2,
+		cutscene: this.Charles,
 	};
 	
 	let locationThree = {
 		name : "locationThree",
 		description : "descriptThree",
+		sprite: "item",
+		number: 3,
+		cutscene: this.Robert, 
 	};
 	
 	this.locations.push(locationOne);
@@ -142,20 +153,46 @@ preloadState.prototype.update = function(){
 	
 }
 preloadState.prototype.transition = function(){
+	console.log("it worked " + this.houseNumber);
+	if(this.houseNumber === 1){
+		console.log("this.game.state.start(HOUSE 1)");
+		game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
+	}
+	else if(this.houseNumber === 2)
+		console.log("this.game.state.start(HOUSE 2)");
+	else if(this.houseNumber === 3)
+		console.log("this.game.state.starts(HOUSE 3)");
 	
 }
-function changeHouse(house){
-	
-	this.allHouses.forEach(function (home){
-		home.visible = false;
-	});
+function changeHouse(){
+	this.BLACK = game.add.sprite(0, 0, "fade_Black");
+	this.BLACK.alpha = 0;
+	if(this.number === 1){
+		this.scene = game.add.sprite(0,0,"CharlesK");
+		this.scene.alpha = 0;
+	}else if(this.number == 2){
+		this.scene = game.add.sprite(0, 0, "RobertDi");
+		this.scene.alpha = 0;
+	}else{
+		this.scene = game.add.sprite(0, 0, "WilliamP");
+		this.scene.alpha = 0;
+	}
 
-	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
-	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	var tween = game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
-	this.houseNumber = house.number;
-	tween.onComplete.add(this.transition, this);
+	game.add.tween(this.BLACK).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
+	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
+	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
+	tween.onComplete.add(function(){
+		console.log("it worked " + this.houseNumber);
+		if(this.number === 1){
+			console.log("this.game.state.start(HOUSE 1)");
+			game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.playerInventory);
+		}
+		else if(this.number === 2)
+			console.log("this.game.state.start(HOUSE 2)");
+		else if(this.number === 3)
+			console.log("this.game.state.starts(HOUSE 3)");
+	}, this);
 	
 }
 
@@ -167,7 +204,9 @@ function addToInventory(toAdd){
 }
 
 function swapNotepad(){
-	
+	for(i = 0; i < 3; i++){
+		this.notepadStuff.panels[i][0].events.onInputDown.removeAll();
+	}
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
@@ -233,11 +272,9 @@ function swapNotepad(){
 				
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
-//		this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
-				this.notepadStuff.panels[i][0].inputEnable = true;
-				this.allHouses.forEach(function(house){
-					house.visible = true;
-				});
+				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
+				this.notepadStuff.panels[i][0].inputEnabled = true;
+				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: this.locations[i].number});
 				
 			}
 		}
