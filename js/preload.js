@@ -71,24 +71,40 @@ preloadState.prototype.preload = function(){
 	
 }
 
+var turn1;
+var turn2;
+var turn3;
+
+var Write1;
+var Write2;
+var Write3;
+var Write4;
+var Write5;
+var Write6;
+var Write7;
+var Write8;
+
+var pageturns;
+var scribbles;
+
 preloadState.prototype.create = function(){
 
-	this.turn1 = game.add.audio("Turn1");
-	this.turn2 = game.add.audio("Turn2");
-	this.turn3 = game.add.audio("Turn3");
+	turn1 = game.add.audio("Turn1");
+	turn2 = game.add.audio("Turn2");
+	turn3 = game.add.audio("Turn3");
 
-	this.Write1 = game.add.audio("Write1");
-	this.Write2 = game.add.audio("Write2");
-	this.Write3 = game.add.audio("Write3");
-	this.Write4 = game.add.audio("Write4");
-	this.Write5 = game.add.audio("Write5");
-	this.Write6 = game.add.audio("Write6");
-	this.Write7 = game.add.audio("Write7");
-	this.Write8 = game.add.audio("Write8");
+	Write1 = game.add.audio("Write1");
+	Write2 = game.add.audio("Write2");
+	Write3 = game.add.audio("Write3");
+	Write4 = game.add.audio("Write4");
+	Write5 = game.add.audio("Write5");
+	Write6 = game.add.audio("Write6");
+	Write7 = game.add.audio("Write7");
+	Write8 = game.add.audio("Write8");
 
 	// arrays of sounds for random playback
-	this.pageturns = [this.turn1, this.turn2, this.turn3];
-	this.scribbles = [this.Write1, this.Write2, this.Write3, this.Write4, this.Write5, this.Write6, this.Write7, this.Write8];
+	pageturns = [turn1, turn2, turn3];
+	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 
@@ -165,9 +181,17 @@ function addToInventory(toAdd){
 	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.destroy();
+
+	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
+	soundToPlay.play();
+
 }
 
 function swapNotepad(){
+
+	// Make a sound
+	let soundToPlay2 = pageturns[Math.floor(Math.random()*pageturns.length)];
+	soundToPlay2.play();
 	
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
