@@ -8,15 +8,10 @@ let preloadState = function(){
 }
 
 preloadState.prototype.preload = function(){
-	game.load.image("item","assets/item.png");
-	game.load.image("invTile","assets/invTile.png");
-	game.load.image("bkpkMenu","assets/bkpkMenu.png");
-	game.load.image("scrollTile","assets/scrollTile.png");
 	game.load.image("bkpk","assets/Art/Notebook_200x200.png");
-	game.load.image("ntbkMenu","assets/notebookMenu.png");
-	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect.png");
+	game.load.image("ntbkMenu","assets/notebookmenu2_720.png");
+	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect2.png");
 	game.load.image("ntbkPanel","assets/notebookPanel.png");
-	game.load.image("tempIcon","assets/tempIcon.png");
 	game.load.image("cabAbove","assets/Art/Cab_750x1334.png");
 	game.load.image("cabBg","assets/Art/Cab_Background_750x1334.png");
 	game.load.image("perOneIcon","assets/Art/croppedIcons/charOneCropped.png");
@@ -100,6 +95,11 @@ preloadState.prototype.preload = function(){
 	game.load.image("ripWil","assets/Art/GameOverWilliam.jpg");
 	game.load.image("win","assets/Art/VictoryScene.jpg");
 	
+	game.load.image("Scene1Icon","assets/Art/croppedIcons/Scene1Icon.png");
+	game.load.image("Scene2Icon","assets/Art/croppedIcons/Scene2Icon.png");
+	game.load.image("Scene3Icon","assets/Art/croppedIcons/Scene3Icon.png");
+	game.load.image("blank","assets/blank.png");
+	
 }
 
 var turn1;
@@ -167,21 +167,21 @@ preloadState.prototype.create = function(){
 	let locationOne = {
 		name : " ",
 		description : "The house of William Patrick Henry",
-		sprite: "item",
+		sprite: "Scene1Icon",
 		number: 1,
 	};
 	
 	let locationTwo = {
 		name : " ",
 		description : "The house of Charles Kensington",
-		sprite: "item",
+		sprite: "Scene2Icon",
 		number: 2,
 	};
 	
 	let locationThree = {
 		name : " ",
 		description : "The house of Robert DiMarco",
-		sprite: "item",
+		sprite: "Scene3Icon",
 		number: 3,
 	}
 	
@@ -236,17 +236,13 @@ function changeHouse(){
 	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
 	tween.onComplete.add(function(){
-		console.log("it worked " + this.number);
 		if(this.number === 1){
-			console.log("this.game.state.start(HOUSE 1)");
 			game.state.start("House1", false, true);
 		}
 		else if(this.number === 2){
-			console.log("this.game.state.start(HOUSE 2)");
 			game.state.start("House2", false, true);
 		}
 		else if(this.number === 3){
-			console.log("this.game.state.starts(HOUSE 3)");
 			game.state.start("House3", false, true);
 		}
 	}, this);
@@ -255,7 +251,6 @@ function changeHouse(){
 
 function addToInventory(toAdd){
 	playerInventory.push(toAdd);
-	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.inputEnabled = false;
 	toAdd.destroy();
@@ -276,7 +271,6 @@ function addToInventory(toAdd){
 	}
 }
 function openLetter(person){
-	console.log("HEY YOU");
 	
 	this.BLACK = game.add.sprite(0, 0, "fade_Black");
 	this.BLACK.alpha = 0;
@@ -357,7 +351,7 @@ function swapNotepad(){
 				{
 					this.notepadStuff.panels[i][1].text = "";
 					this.notepadStuff.panels[i][2].text = ""
-					this.notepadStuff.panels[i][0].loadTexture("",0,false);
+					this.notepadStuff.panels[i][0].loadTexture("blank",0,false);
 				}
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
@@ -561,7 +555,6 @@ function finishAccuse(acc){
 		screen.inputEnabled = true;
 		
 		
-		//console.log("You put Robert DiMarco behind bars! Congradulations!(DISPLAY THIS TEXT UNDERNEATH A PICTURE OF ROBERT BEHIND BARS AND KEEP THAT SCREEN AS AN END SCREEN)");
 	}
 	else if(acc===1){
 			

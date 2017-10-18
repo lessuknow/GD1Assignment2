@@ -25,7 +25,7 @@ House2.prototype.create = function(){
 	item6.events.onInputDown.add(addToInventory,this,0,item6);
 	let item8 = game.add.sprite(350, 900, "Receipt1"); //Friend 1: Receipt from Bar
 	item8.visible = false;
-	item8.description = "A receipt for some light bare fare."
+	item8.description = "A receipt for some light bar fare."
 	item8.name = "William's Receipt";
 	item8.pic = "Receipt1";
 	item8.alreadyGrabbed = false; 
