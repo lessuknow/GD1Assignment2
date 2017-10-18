@@ -92,6 +92,7 @@ var pageturns;
 var scribbles;
 
 preloadState.prototype.create = function(){
+
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 
 	turn1 = game.add.audio("Turn1");
