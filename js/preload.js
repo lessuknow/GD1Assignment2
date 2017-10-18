@@ -35,7 +35,6 @@ preloadState.prototype.preload = function(){
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
 
-	
 	game.load.image("accuseButton","assets/tempAccuse.png");
 
 
@@ -66,6 +65,8 @@ preloadState.prototype.preload = function(){
 
 	game.load.audio("Click", "assets/Audio/Other/Click.ogg");
 	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
+	
+	game.load.image("title", "assets/title.png");
 	
 	
 }
@@ -235,6 +236,7 @@ function swapNotepad(){
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
 //		this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
 				this.notepadStuff.panels[i][0].inputEnable = true;
+				this.notepadStuff.panels[i][0].events.onInputDown.add(functionNAme, this);
 				this.allHouses.forEach(function(house){
 					house.visible = true;
 				});
@@ -412,21 +414,18 @@ function accuse(){
 	this.notepadStuff.panels[2][3].events.onInputDown.add(selectThree,this);
 }
 
-function finishAccuse(){
-	console.log("you accused them yay");
+function finishAccuse(acc){
+	console.log("you accused " + acc + "yay");
 }
 
 function selectOne(){
-	this.accused = 1;
-	finishAccuse();
+	finishAccuse(1);
 }
 
 function selectTwo(){
-	this.accused = 2;
-	finishAccuse();
+	finishAccuse(2);
 }
 
 function selectThree(){
-	this.accused = 3;
-	finishAccuse();
+	finishAccuse(3);
 }
