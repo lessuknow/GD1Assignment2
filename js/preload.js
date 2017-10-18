@@ -185,6 +185,7 @@ preloadState.prototype.update = function(){
 function changeHouse(){
 	this.BLACK = game.add.sprite(0, 0, "fade_Black");
 	this.BLACK.alpha = 0;
+	this.BLACK.inputEnabled = true;
 	if(this.number === 1){
 		this.scene = game.add.sprite(0,0,"WilliamP");
 		this.scene.alpha = 0;
@@ -197,7 +198,7 @@ function changeHouse(){
 	}
 
 	game.add.tween(this.BLACK).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
+	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 2000);
 	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
 	tween.onComplete.add(function(){
@@ -231,9 +232,13 @@ function addToInventory(toAdd){
 	if(toAdd.name === "William's letter"){
 		openLetter("wil");
 	}
-	else if(toAdd.name === "...")
+	else if(toAdd.name === "Charle's letter")
 	{
-		
+		openLetter("char");
+	}
+	else if(toAdd.name === "Robert's letter")
+	{
+		openLetter("rob");
 	}
 }
 
@@ -246,20 +251,30 @@ function openLetter(person){
 	{
 		this.scene = game.add.sprite(0,0,"LetterOneScreen");
 	}
-	
+	else if(person==="char"){
+		this.scene = game.add.sprite(0,0,"LetterTwoScreen");
+	}
+	else{
+		this.scene = game.add.sprite(0,0,"LetterThreeScreen");
+	}
 	this.scene.alpha = 0;
 	game.add.tween(this.BLACK).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
+	var tempTween = game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
 	this.scene.inputEnabled = true;
+	tempTween.onComplete.add(addInput, this);
+}
+
+function addInput(){
+	
 	this.scene.events.onInputDown.add(fadeAway, this);
 }
 
 function fadeAway(){
 	this.scene.events.onInputDown.removeAll();
-	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true);
+	var tempTween = game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true);
 	game.add.tween(this.BLACK).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true);
 	
-	
+tempTween.onComplete.add(function(){this.scene.inputEnabled = false;}, this);
 	
 }
 
