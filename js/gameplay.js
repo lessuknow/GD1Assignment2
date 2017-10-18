@@ -13,7 +13,7 @@ gameplayState.prototype.init = function(sus, loc){
 }
 gameplayState.prototype.create = function(){
 	
-	this.level = 0;
+	this.houseNumber = 0;
 	this.backGround = game.add.group();
 	this.backGround = game.add.sprite(0,0,"cabBg");
 	this.backGround = game.add.sprite(0,0,"cabAbove");
@@ -116,10 +116,10 @@ gameplayState.prototype.create = function(){
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
 	//Have a group that contains all the items: ALLITEMS
 	
-	let itemsH1 = game.add.group(); //HOUSE 1: William's House
-	itemsH1.add(item3); //Loose Money
-	itemsH1.add(item4); //Combination
-	itemsH1.add(item5); // Letter 1
+	this.itemsH1 = game.add.group(); //HOUSE 1: William's House
+	this.itemsH1.add(item3); //Loose Money
+	this.itemsH1.add(item4); //Combination
+	this.itemsH1.add(item5); // Letter 1
 
 	let itemsH2 = game.add.group(); //HOUSE 2: Charle's House
 	itemsH2.add(item8); //Receipt Bar Friend 1
@@ -133,11 +133,11 @@ gameplayState.prototype.create = function(){
 	itemsH3.add(item7); //Letter 3
 
 	this.ALLITEMS = game.add.group();
-	this.ALLITEMS.add(itemsH1);
+	this.ALLITEMS.add(this.itemsH1);
 	this.ALLITEMS.add(itemsH2);
 	this.ALLITEMS.add(itemsH3);
 	
-	this.ALLITEMS.visible = true;
+	this.ALLITEMS.visible = false;
 
 	//initialize text for description
 	descriptionText = game.add.text(0, game.world.height - 250, '', {fill: '#ffffff'});
@@ -185,8 +185,6 @@ gameplayState.prototype.create = function(){
 	this.allHouses.add(house2);
 	this.allHouses.add(house3);
 
-	let allHousesTemp = this.allHouses;
-	let notepadTemp = this.notepadStuff;
 	this.allHouses.forEach(function(house){
 		house.fading = BLACK;
 		house.visible = false;
@@ -199,7 +197,15 @@ gameplayState.prototype.create = function(){
 
 
 gameplayState.prototype.transition = function(){
-	console.log("it worked " + this.level);
+	console.log("it worked " + this.houseNumber);
+	if(this.houseNumber === 1){
+		console.log("this.game.state.start(HOUSE 1)");
+		game.state.start("House1", true, false, this.suspects, this.locations, this.itemsH1, this.notepadStuff, this.allHouses, this.playerInventory);
+	}
+	else if(this.houseNumber === 2)
+		console.log("this.game.state.start(HOUSE 2)");
+	else if(this.houseNumber === 3)
+		console.log("this.game.state.starts(HOUSE 3)");
 	
 }
 gameplayState.prototype.update = function(){

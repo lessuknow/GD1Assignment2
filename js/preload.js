@@ -134,6 +134,7 @@ preloadState.prototype.create = function(){
 	this.locations.push(locationOne);
 	this.locations.push(locationTwo);
 	this.locations.push(locationThree);
+
 	game.state.start("Gameplay", true, false, this.suspects, this.locations);
 }
 
@@ -152,9 +153,9 @@ function changeHouse(house){
 	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
 	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
 	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
-	this.level = house.number;
-	this.transition(this);	
+	var tween = game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
+	this.houseNumber = house.number;
+	tween.onComplete.add(this.transition, this);
 	
 }
 
