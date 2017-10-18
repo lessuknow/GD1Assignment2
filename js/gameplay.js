@@ -65,21 +65,6 @@ gameplayState.prototype.create = function(){
 	item2.name = "Arsenic Receipt";
 	item2.pic = "ArReceipt";
 	item2.events.onInputDown.add(addToInventory,this,0,item2);
-	let item3 = game.add.sprite(500, 350, "Cash"); //Loose Money
-	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
-	item3.name = "Loose Money";
-	item3.pic = "Cash";
-	item3.events.onInputDown.add(addToInventory,this,0,item3);
-	let item4 = game.add.sprite(0, 700, "Combination"); //Combination
-	item4.description = "A slip of paper containing only the digits 2 6 2 9. It appears to be written in a quick, inexact handwriting."
-	item4.name = "Combination";
-	item4.pic = "Combination";
-	item4.events.onInputDown.add(addToInventory,this,0,item4);
-	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
-	item5.description = "A carefully-folded letter with neat, deliberate writing."
-	item5.name = "William's letter";
-	item5.pic = "Letter1";
-	item5.events.onInputDown.add(addToInventory,this,0,item5);
 	let item6 = game.add.sprite(500, 700, "Letter2"); //Friend 2: Letter to Deceased
 	item6.description = "A childishly scribbled note with a few stains on it."
 	item6.name = "Charle's letter";
@@ -107,21 +92,11 @@ gameplayState.prototype.create = function(){
 	item10.events.onInputDown.add(addToInventory,this,0,item10);
 	
 	//Let's have the inventory have like 4 items rn.
-	this.playerInventory.push(item);
-	this.playerInventory.push(item2);
-	this.playerInventory.push(item3);
-	this.playerInventory.push(item4);
-	this.playerInventory.push(item10);
 	
 
 	//Put all the sprite clues in designated groups: HOUSE 1, HOUSE 2, and HOUSE 3
 	//Have a group that contains all the items: ALLITEMS
 	
-	this.itemsH1 = game.add.group(); //HOUSE 1: William's House
-	this.itemsH1.add(item3); //Loose Money
-	this.itemsH1.add(item4); //Combination
-	this.itemsH1.add(item5); // Letter 1
-
 	let itemsH2 = game.add.group(); //HOUSE 2: Charle's House
 	itemsH2.add(item8); //Receipt Bar Friend 1
 	itemsH2.add(item9);//Receipt Bar Friend 3
@@ -134,7 +109,6 @@ gameplayState.prototype.create = function(){
 	itemsH3.add(item7); //Letter 3
 
 	this.ALLITEMS = game.add.group();
-	this.ALLITEMS.add(this.itemsH1);
 	this.ALLITEMS.add(itemsH2);
 	this.ALLITEMS.add(itemsH3);
 	
@@ -201,7 +175,7 @@ gameplayState.prototype.transition = function(){
 	console.log("it worked " + this.houseNumber);
 	if(this.houseNumber === 1){
 		console.log("this.game.state.start(HOUSE 1)");
-		game.state.start("House1", true, false, this.suspects, this.locations, this.itemsH1, this.notepadStuff, this.allHouses, this.playerInventory);
+		game.state.start("House1", false, false, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
 	}
 	else if(this.houseNumber === 2)
 		console.log("this.game.state.start(HOUSE 2)");

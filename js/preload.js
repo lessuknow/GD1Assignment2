@@ -51,18 +51,18 @@ preloadState.prototype.preload = function(){
 
 	game.load.audio("Write1", "assets/Audio/PencilSounds/1.ogg");
 	game.load.audio("Write2", "assets/Audio/PencilSounds/2.ogg");
-	game.load.audio("Write3", "assets/Audio/PencilSounds/3.ogg");
-	game.load.audio("Write4", "assets/Audio/PencilSounds/4.ogg");
-	game.load.audio("Write5", "assets/Audio/PencilSounds/5.ogg");
-	game.load.audio("Write6", "assets/Audio/PencilSounds/6.ogg");
-	game.load.audio("Write7", "assets/Audio/PencilSounds/7.ogg");
-	game.load.audio("Write8", "assets/Audio/PencilSounds/8.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/3.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/4.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/5.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/6.ogg");
+	game.load.audio("Write1", "assets/Audio/PencilSounds/7.ogg");
+	game.load.audio("Write2", "assets/Audio/PencilSounds/8.ogg");
 
 	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.ogg");
 	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.ogg"); //phew
 	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.ogg");
-	game.load.audio("Turn2", "assets/Audio/PaperSounds/PageTurn2.ogg");
-	game.load.audio("Turn3", "assets/Audio/PaperSounds/PageTurn3.ogg");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.ogg");
+	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.ogg");
 
 	game.load.audio("Click", "assets/Audio/Other/Click.ogg");
 	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
@@ -71,25 +71,7 @@ preloadState.prototype.preload = function(){
 }
 
 preloadState.prototype.create = function(){
-
-	this.turn1 = game.add.audio("Turn1");
-	this.turn2 = game.add.audio("Turn2");
-	this.turn3 = game.add.audio("Turn3");
-
-	this.Write1 = game.add.audio("Write1");
-	this.Write2 = game.add.audio("Write2");
-	this.Write3 = game.add.audio("Write3");
-	this.Write4 = game.add.audio("Write4");
-	this.Write5 = game.add.audio("Write5");
-	this.Write6 = game.add.audio("Write6");
-	this.Write7 = game.add.audio("Write7");
-	this.Write8 = game.add.audio("Write8");
-
-	// arrays of sounds for random playback
-	this.pageturns = [this.turn1, this.turn2, this.turn3];
-	this.scribbles = [this.Write1, this.Write2, this.Write3, this.Write4, this.Write5, this.Write6, this.Write7, this.Write8];
-
-	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
+//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 	this.suspects = [];
 	
 	let susOne = {
@@ -222,7 +204,7 @@ function swapNotepad(){
 				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
-				if(this.playerInventory[i + this.curNotepadIndex]!=null)
+				if(this.playerInventory[i + this.curNotepadIndex]!= null)
 				{
 					this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
 					this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;

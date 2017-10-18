@@ -1,52 +1,59 @@
 let House1 = function(){
 }
-House1.prototype.init = function(sus, loc, items, notepad, houses, inv){
+House1.prototype.init = function(sus, loc, houses, inv){
 	this.suspects = sus;
 	this.locations = loc;
-	this.ALLITEMS = game.add.group();
-	this.ALLITEMS.moveAll(items);
-	this.notepadStuff = notepad;
 	this.allHouses = houses;
 	this.playerInventory = inv;
 }
 House1.prototype.preload = function(){
 }
 House1.prototype.create = function(){
-	this.hosueNumber = 1;
+	this.houseNumber = 1;
 	this.backGround = game.add.group();
 	this.backGround = game.add.sprite(0, 0, "cabBg");
 	this.backGround = game.add.sprite(0, 0, "cabAbove");
 	this.curNotepadPos = "suspects";
 	this.curNotepadIndex = 0;
 	this.accused = 0;
+	
 	instantiateNotepad(this);
-
-	// Identify and play music
-	let music = game.add.audio("Music");
-	music.play();
-	
-	//this.curNotepadPos = "objects";
-	
-	//Going to assume that we defualt have suspects open
-	
-	
-	
 	this.but = game.add.sprite(600,1334-150,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(enableDisableNotepad, this);
 	this.but.events.onInputDown.add(swapNotepad, this);
-
+	//ITEMS IN THIS HOSUE
+	let item3 = game.add.sprite(500, 350, "Cash"); //Loose Money
+	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
+	item3.name = "Loose Money";
+	item3.pic = "Cash";
+	item3.events.onInputDown.add(addToInventory,this,0,item3);
+	let item4 = game.add.sprite(0, 700, "Combination"); //Combination
+	item4.description = "A slip of paper containing only the digits 2 6 2 9. It appears to be written in a quick, inexact handwriting."
+	item4.name = "Combination";
+	item4.pic = "Combination";
+	item4.events.onInputDown.add(addToInventory,this,0,item4);
+	let item5 = game.add.sprite(250, 700, "Letter1"); //Friend 1: Letter to Deceased
+	item5.description = "A carefully-folded letter with neat, deliberate writing."
+	item5.name = "William's letter";
+	item5.pic = "Letter1";
+	item5.events.onInputDown.add(addToInventory,this,0,item5);
 	
+	this.itemsH1 = game.add.group(); //HOUSE 1: William's House
+	this.itemsH1.add(item3); //Loose Money
+	this.itemsH1.add(item4); //Combination
+	this.itemsH1.add(item5); // Letter 1
+
 	for(i=0;i<this.notepadStuff.panels.length;i++)
 		for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
 	
 	this.notepadStuff.visible = !this.notepadStuff.visible;
-	this.ALLITEMS.forEach(function(house){
-		house.visible = true;
-		house.inputEnabled = true;
+	this.itemsH1.forEach(function(item){
+		item.visible = true;
+		item.inputEnabled = true;
+		console.log("hi");
 	});
-
 
 	
 }
