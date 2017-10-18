@@ -37,7 +37,8 @@ preloadState.prototype.preload = function(){
 
 	game.load.image("accuseButton","assets/tempAccuse.png");
 
-
+	game.load.image("titleText", "assets/title.png");
+	
 	//CUTSCENE PNGS
 	game.load.image("CharlesK", "assets/Art/Charles_Kensington.png");
 	game.load.image("RobertDi", "assets/Art/Robert_DiMarco.png");
@@ -90,6 +91,7 @@ var scribbles;
 preloadState.prototype.create = function(){
 	
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
+	this.backGround = game.add.sprite(0,0,"titleText");
 
 	turn1 = game.add.audio("Turn1");
 	turn2 = game.add.audio("Turn2");
@@ -160,7 +162,19 @@ preloadState.prototype.create = function(){
 	this.locations.push(locationOne);
 	this.locations.push(locationTwo);
 	this.locations.push(locationThree);
-	game.state.start("Gameplay", true, false, this.suspects, this.locations);
+	
+	this.backGround.inputEnabled = true;
+	this.backGround.events.onInputDown.add(fade, this);
+}
+
+function fade(){
+	
+	let tween = game.add.tween(this.backGround).to({alpha:0}, 0, "Linear" , true, 0);
+	tween.onComplete.add(move,this);
+}
+
+function move(){
+	game.state.start("Gameplay");
 }
 
 preloadState.prototype.update = function(){

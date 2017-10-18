@@ -16,9 +16,20 @@ gameplayState.prototype.create = function(){
 	
 	this.houseNumber = 0;
 	this.backGround = game.add.group();
-	this.backGround = game.add.sprite(0,0,"cabBg");
-	this.backGround = game.add.sprite(0,0,"cabAbove");
-
+	let bgBack = game.add.sprite(0,0,"cabBg");
+	let bgCab = game.add.sprite(0,0,"cabAbove");
+	
+	this.backGround.add(bgBack);
+	this.backGround.add(bgCab);
+	
+	bgBack.alpha = 0;
+	bgCab.alpha = 0;
+	
+    game.add.tween(bgBack).to( { alpha: 1 }, 2000, "Linear", true, 0, 0, false);	
+    game.add.tween(bgCab).to( { alpha: 1 }, 2000, "Linear", true, 0, 0, false);	
+	
+	
+	
 	this.curNotepadPos = "suspects";
 	this.curNotepadIndex = 0;
 	this.accused = 0;
@@ -116,8 +127,8 @@ gameplayState.prototype.create = function(){
 
 	//initialize text for description
 	
-	var style = { font: "bold 30px Arial", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 500};
-	descriptionText = game.add.text(125, game.world.height - 165, '', style);
+	var style = { font: "bold 30px Arial", fill: "#FFFFFF", align: "center", wordWrap: true, wordWrapWidth: 750};
+	descriptionText = game.add.text(15, game.world.height - 350, 'You must listen to me James.  No one must know about this.  I know of your plan to tell the others about my “bad habits” but it most certainly won\'t do.  I have worked hard and diligently to make my name and reputation strong.  I will not let you destroy what I have built.Yours,Robert', style);
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
 	for(var i = 0, len = this.ALLITEMS.children.length; i < len; i++){
 		this.ALLITEMS.children[i].forEach(function(item){
