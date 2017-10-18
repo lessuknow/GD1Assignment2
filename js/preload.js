@@ -33,8 +33,12 @@ preloadState.prototype.preload = function(){
 	game.load.image("L1_5", "assets/Art/S1-L3.png");
 	game.load.image("L1_6", "assets/Art/S1-L2.png");
 	game.load.image("L1_8", "assets/Art/S1-L1.png");
-	game.load.image("Leftarrow","assets/Art/Left_100x100.png");
-	game.load.image("Rightarrow","assets/Art/Right_100x100.png");
+	//LEVEL 2
+	game.load.image("L2_1", "assets/Art/S2-Background.png");
+	game.load.image("L2_2", "assets/Art/S2-L4.png");
+	game.load.image("L2_3", "assets/Art/S2-L3.png");
+	game.load.image("L2_5", "assets/Art/S2-L2.png");
+	game.load.image("L2_6", "assets/Art/S2-L1.png");
 
 	//THE OBJECTS OF THE GAME
 	game.load.image("ArBottle", "assets/Art/Items_450x500_300dpi/Arsenic-Bottle.png");
@@ -48,8 +52,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
 
-	game.load.image("accuseButton","assets/Art/Accusement.jpg");
-
+	game.load.image("accuseButton","assets/tempAccuse.png");
+	game.load.image("Leftarrow","assets/Art/Left_100x100.png");
+	game.load.image("Rightarrow","assets/Art/Right_100x100.png");
 	game.load.image("titleText", "assets/title.png");
 	
 	//CUTSCENE PNGS
