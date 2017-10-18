@@ -88,10 +88,8 @@ var pageturns;
 var scribbles;
 
 preloadState.prototype.create = function(){
-<<<<<<< HEAD
 	this.playerInventory = [];
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-=======
 
 	turn1 = game.add.audio("Turn1");
 	turn2 = game.add.audio("Turn2");
@@ -111,8 +109,6 @@ preloadState.prototype.create = function(){
 	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-
->>>>>>> 445403d732bd4c9d5a9031604c5ef3f63fd4dbe5
 	this.suspects = [];
 	
 	let susOne = {
@@ -141,43 +137,25 @@ preloadState.prototype.create = function(){
 	this.locations = [];
 	
 	let locationOne = {
-<<<<<<< HEAD
-		name : "locationOne",
-		description : "descriptOne",
+		name : " ",
+		description : "The house of William Patrick Henry",
 		sprite: "item",
 		number: 1,
-		cutscene: this.William,
 	};
 	
 	let locationTwo = {
-		name : "locationTwo",
-		description : "descriptTwo",
+		name : " ",
+		description : "The house of Charles Kensington",
 		sprite: "item",
 		number: 2,
-		cutscene: this.Charles,
 	};
 	
 	let locationThree = {
-		name : "locationThree",
-		description : "descriptThree",
+		name : " ",
+		description : "The house of Robert DiMarco",
 		sprite: "item",
 		number: 3,
-		cutscene: this.Robert, 
-=======
-		name : "",
-		description : "The house of William Patrick Henry",
-	};
-	
-	let locationTwo = {
-		name : "",
-		description : "The house of Charles Kensington",
-	};
-	
-	let locationThree = {
-		name : "",
-		description : "The house of Robert DiMarco",
->>>>>>> 445403d732bd4c9d5a9031604c5ef3f63fd4dbe5
-	};
+	}
 	
 	this.locations.push(locationOne);
 	this.locations.push(locationTwo);
@@ -200,18 +178,17 @@ preloadState.prototype.transition = function(){
 		console.log("this.game.state.starts(HOUSE 3)");
 	
 }
-<<<<<<< HEAD
 function changeHouse(){
 	this.BLACK = game.add.sprite(0, 0, "fade_Black");
 	this.BLACK.alpha = 0;
 	if(this.number === 1){
-		this.scene = game.add.sprite(0,0,"CharlesK");
+		this.scene = game.add.sprite(0,0,"WilliamP");
 		this.scene.alpha = 0;
 	}else if(this.number == 2){
-		this.scene = game.add.sprite(0, 0, "RobertDi");
+		this.scene = game.add.sprite(0, 0, "CharlesK");
 		this.scene.alpha = 0;
 	}else{
-		this.scene = game.add.sprite(0, 0, "WilliamP");
+		this.scene = game.add.sprite(0, 0, "RobertDi");
 		this.scene.alpha = 0;
 	}
 
@@ -230,20 +207,6 @@ function changeHouse(){
 		else if(this.number === 3)
 			console.log("this.game.state.starts(HOUSE 3)");
 	}, this);
-=======
-function changeHouse(house){
-	
-	this.allHouses.forEach(function (home){
-		home.visible = false;
-	});
-
-	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
-	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
-	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
-	this.level = house.number;
-	this.transition(this);	
->>>>>>> 445403d732bd4c9d5a9031604c5ef3f63fd4dbe5
 	
 }
 
@@ -259,17 +222,14 @@ function addToInventory(toAdd){
 }
 
 function swapNotepad(){
-<<<<<<< HEAD
 	for(i = 0; i < 3; i++){
 		this.notepadStuff.panels[i][0].events.onInputDown.removeAll();
 	}
-=======
 
 	// Make a sound
 	let soundToPlay2 = pageturns[Math.floor(Math.random()*pageturns.length)];
 	soundToPlay2.play();
-	
->>>>>>> 445403d732bd4c9d5a9031604c5ef3f63fd4dbe5
+
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
@@ -336,15 +296,8 @@ function swapNotepad(){
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
 				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
-<<<<<<< HEAD
 				this.notepadStuff.panels[i][0].inputEnabled = true;
 				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: this.locations[i].number});
-=======
-				this.notepadStuff.panels[i][0].inputEnable = true;
-				this.allHouses.forEach(function(house){
-					house.visible = true;
-				});
->>>>>>> 445403d732bd4c9d5a9031604c5ef3f63fd4dbe5
 				
 			}
 		}
