@@ -117,18 +117,18 @@ preloadState.prototype.create = function(){
 	this.locations = [];
 	
 	let locationOne = {
-		name : "locationOne",
-		description : "descriptOne",
+		name : "",
+		description : "The house of William Patrick Henry",
 	};
 	
 	let locationTwo = {
-		name : "locationTwo",
-		description : "descriptTwo",
+		name : "",
+		description : "The house of Charles Kensington",
 	};
 	
 	let locationThree = {
-		name : "locationThree",
-		description : "descriptThree",
+		name : "",
+		description : "The house of Robert DiMarco",
 	};
 	
 	this.locations.push(locationOne);
