@@ -93,38 +93,20 @@ preloadState.prototype.create = function(){
 	this.suspects = [];
 	
 	let susOne = {
-		name: "testName",
-		age: 3,
-		race: "testRace",
-		heightWeight: "testheightWeight",
-		hair: "testHair",
-		eyes: "testEyes",
-		infoWantedDescrip: "...",
-		notepadDescrip: "hello",
+		name: "William P. Henry",
+		notepadDescrip: "William is a queit old man.  He lives humbly with his wife Elena and refrains from gluttonous spending.",
 		pic: "perOneIcon",
 	};
 		
 	let susTwo = {
-		name: "testName2",
-		age: 5,
-		race: "testRace2",
-		heightWeight: "testheightWeight2",
-		hair: "testHair2",
-		eyes: "testEyes2",
-		infoWantedDescrip: "2...",
-		notepadDescrip: "hello2",
+		name: "C. Kensington",
+		notepadDescrip: "Charles' house is a pigsty.  He lives alone and does not seem to go out very much, except with friends.",
 		pic: "perTwoIcon",
 	};
 		
 	let susThree = {
-		name: "testName3",
-		age: 1,
-		race: "testRace3",
-		heightWeight: "testheightWeight3",
-		hair: "testHair3",
-		eyes: "testEyes3",
-		infoWantedDescrip: "3...",
-		notepadDescrip: "hello3",
+		name: "Robert DiMarco",
+		notepadDescrip: "Robert lives in a simple house.  He seems like a normal guy who needs to find himself a hobby.",
 		pic: "perThreeIcon",
 	};
 	
