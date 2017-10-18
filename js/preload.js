@@ -28,11 +28,19 @@ preloadState.prototype.preload = function(){
 	game.load.image("fade_Black", "assets/Black.png");
 
 	game.load.image("arrow","assets/tempArrow.png");
+	//LEVEL 1
+		//L1_4 == CASH
+		//L1_7 == COMBINATION
+		//L1_9 == LETTER
+	game.load.image("L1_1", "assets/Art/S1-Background.png");
+	game.load.image("L1_2", "assets/Art/S1-L5.png");
+	game.load.image("L1_3", "assets/Art/S1-L4.png");
+	game.load.image("L1_5", "assets/Art/S1-L3.png");
+	game.load.image("L1_6", "assets/Art/S1-L2.png");
+	game.load.image("L1_8", "assets/Art/S1-L1.png");
 	game.load.image("Leftarrow","assets/Art/Left_100x100.png");
 	game.load.image("Rightarrow","assets/Art/Right_100x100.png");
 
-	
-	
 	//THE OBJECTS OF THE GAME
 	game.load.image("ArBottle", "assets/Art/Items_450x500_300dpi/Arsenic-Bottle.png");
 	game.load.image("ArReceipt", "assets/Art/Items_450x500_300dpi/Arsenic-Receipt.png");
@@ -111,6 +119,7 @@ var pageturns;
 var scribbles;
 
 preloadState.prototype.create = function(){
+
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 	this.backGround = game.add.sprite(0,0,"titleText");
 
@@ -266,7 +275,6 @@ function addToInventory(toAdd){
 		openLetter("rob");
 	}
 }
-
 function openLetter(person){
 	
 	this.BLACK = game.add.sprite(0, 0, "fade_Black");
@@ -301,7 +309,6 @@ function fadeAway(){
 tempTween.onComplete.add(function(){this.scene.inputEnabled = false;}, this);
 	
 }
-
 
 function swapNotepad(){
 	for(i = 0; i < 3; i++){
