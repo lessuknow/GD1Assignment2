@@ -27,7 +27,7 @@ gameplayState.prototype.create = function(){
 	let music = game.add.audio("Music");
 	music.play();
 	music.loopFull();
-	
+
 	//this.curNotepadPos = "objects";
 	
 	//Going to assume that we defualt have suspects open
