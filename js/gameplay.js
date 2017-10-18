@@ -8,7 +8,6 @@ gameplayState.prototype.preload = function(){
 	
 }
 gameplayState.prototype.create = function(){
-
 	this.houseNumber = 0;
 	this.backGround = game.add.group();
 	this.backGround = game.add.sprite(0,0,"cabBg");
@@ -41,12 +40,11 @@ gameplayState.prototype.create = function(){
 			this.notepadStuff.panels[i][j].visible = !this.notepadStuff.visible;
 	
 	this.notepadStuff.visible = !this.notepadStuff.visible;
-	
 
 	//initialize text for description
 	
-	var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
-	descriptionText = game.add.text(0, game.world.height - 250, '', style);
+	var style = { font: "bold 30px Arial", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 500};
+	descriptionText = game.add.text(125, game.world.height - 165, '', style);
 }
 
 
