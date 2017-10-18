@@ -86,7 +86,6 @@ var scribbles = [];
 var pageTurns = [];
 
 preloadState.prototype.create = function(){
-<<<<<<< HEAD
 
 	// Adding audio from preload
 	turn1 = game.add.audio("Turn1");
@@ -106,9 +105,7 @@ preloadState.prototype.create = function(){
 	pageTurns = [turn1, turn2, turn3];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-=======
-//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
->>>>>>> d64b1c09d4d54fb9d059ccbbf0d66bc694c27c68
+
 	this.suspects = [];
 	
 	let susOne = {
@@ -273,9 +270,8 @@ function swapNotepad(){
 				
 				this.notepadStuff.panels[i][1].text = this.locations[i].description;
 				this.notepadStuff.panels[i][2].text = this.locations[i].name;
-//		this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
+				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
 				this.notepadStuff.panels[i][0].inputEnable = true;
-				this.notepadStuff.panels[i][0].events.onInputDown.add(functionNAme, this);
 				this.allHouses.forEach(function(house){
 					house.visible = true;
 				});
