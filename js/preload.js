@@ -10,7 +10,7 @@ let preloadState = function(){
 preloadState.prototype.preload = function(){
 	game.load.image("bkpk","assets/Art/Notebook_200x200.png");
 	game.load.image("ntbkMenu","assets/notebookmenu2_720.png");
-	game.load.image("ntbkMenuSelect","assets/ntbkmenuselect2_360.png");
+	game.load.image("ntbkMenuSelect","assets/Art/ntbkmenuselect2_360.png");
 	game.load.image("ntbkPanel","assets/Art/notebookpanel2_480.png");
 	game.load.image("cabAbove","assets/Art/Cab_750x1334.png");
 	game.load.image("cabBg","assets/Art/Cab_Background_750x1334.png");
@@ -52,7 +52,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("Receipt2", "assets/Art/Items_450x500_300dpi/R2.png");
 	game.load.image("Receipt3", "assets/Art/Items_450x500_300dpi/R3.png");
 
-	game.load.image("accuseButton","assets/tempAccuse.png");
+	game.load.image("accuseButton","assets/Art/Accusement.jpg");
 	game.load.image("Leftarrow","assets/Art/Left_100x100.png");
 	game.load.image("Rightarrow","assets/Art/Right_100x100.png");
 	game.load.image("titleText", "assets/title.png");
@@ -98,7 +98,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("Scene1Icon","assets/Art/croppedIcons/Scene1Icon.png");
 	game.load.image("Scene2Icon","assets/Art/croppedIcons/Scene2Icon.png");
 	game.load.image("Scene3Icon","assets/Art/croppedIcons/Scene3Icon.png");
-	game.load.image("blank","assets/blank.png");
+	game.load.image("blank","assets/Art/blank2_360.png");
 	
 }
 
@@ -471,7 +471,7 @@ function instantiateNotepad(that){
 		
 		var nkPanel = that.notepadStuff.create(40, 225 + 70 + 263*i,"ntbkPanel");
 		//note: 263 is the height of the notebook panel
-		temp.push(that.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"tempIcon"));
+		temp.push(that.notepadStuff.create(40 + ICON_BORDER, 225 + 70 + 263 * i + ICON_BORDER,"blank"));
 		var style = { font: "bold 34px Arial", fill: "#fff", align: "left", wordWrap: true, wordWrapWidth: 400};
 		var tempText = "dddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd\ndddddddddddddddddd";
 		//var tempText = "Small glass bottle\nof rat poison, the\nvulgar arsenic. \nA very likely choice\nfor poisoning."
