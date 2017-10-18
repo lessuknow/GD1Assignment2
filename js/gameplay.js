@@ -70,18 +70,18 @@ gameplayState.prototype.create = function(){
 	Robert.alpha = 0;
 	William.alpha = 0;
 
-	let house1 = game.add.sprite(70, 325, "item");
+	let house1 = game.add.sprite(70, 325, "blank");
 	house1.number = 1;
 	house1.cutscene = William;
 	house1.level = Robert;
 	//house1.events.onInputDown.add(changeHouse, this, 0, house1);
 	house1.scale.setTo(4, 4);
-	let house2 = game.add.sprite(70, 588, "item");
+	let house2 = game.add.sprite(70, 588, "blank");
 	house2.number = 2;
 	house2.cutscene = Charles;
 	house2.level = William;
 	//house2.events.onInputDown.add(changeHouse, this, 0, house2);
-	let house3 = game.add.sprite(70,851 , "item");
+	let house3 = game.add.sprite(70,851 , "blank");
 	house3.number = 3;
 	house3.cutscene = Robert;
 	house3.level = Charles;

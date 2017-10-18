@@ -10,8 +10,8 @@ let preloadState = function(){
 preloadState.prototype.preload = function(){
 	game.load.image("bkpk","assets/Art/Notebook_200x200.png");
 	game.load.image("ntbkMenu","assets/notebookmenu2_720.png");
-	game.load.image("ntbkMenuSelect","assets/ntbkMenuSelect2.png");
-	game.load.image("ntbkPanel","assets/notebookPanel.png");
+	game.load.image("ntbkMenuSelect","assets/ntbkmenuselect2_360.png");
+	game.load.image("ntbkPanel","assets/Art/notebookpanel2_480.png");
 	game.load.image("cabAbove","assets/Art/Cab_750x1334.png");
 	game.load.image("cabBg","assets/Art/Cab_Background_750x1334.png");
 	game.load.image("perOneIcon","assets/Art/croppedIcons/charOneCropped.png");
@@ -200,7 +200,7 @@ function fade(){
 }
 
 function fadeTwo(){
-	let tween = game.add.tween(this.tempImage).to({alpha:0}, 2000, "Linear" , true, 8000);
+	let tween = game.add.tween(this.tempImage).to({alpha:0}, 2000, "Linear" , true, 12000);
 	tween.onComplete.add(move,this);	
 }
 
