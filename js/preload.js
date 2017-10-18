@@ -87,6 +87,11 @@ preloadState.prototype.preload = function(){
 	game.load.image("ripWil","assets/Art/GameOverWilliam.jpg");
 	game.load.image("win","assets/Art/VictoryScene.jpg");
 	
+	game.load.image("Scene1Icon","assets/Art/croppedIcons/Scene1Icon.png");
+	game.load.image("Scene2Icon","assets/Art/croppedIcons/Scene2Icon.png");
+	game.load.image("Scene3Icon","assets/Art/croppedIcons/Scene3Icon.png");
+	game.load.image("blank","assets/blank.png");
+	
 }
 
 var turn1;
@@ -153,21 +158,21 @@ preloadState.prototype.create = function(){
 	let locationOne = {
 		name : " ",
 		description : "The house of William Patrick Henry",
-		sprite: "item",
+		sprite: "Scene1Icon",
 		number: 1,
 	};
 	
 	let locationTwo = {
 		name : " ",
 		description : "The house of Charles Kensington",
-		sprite: "item",
+		sprite: "Scene2Icon",
 		number: 2,
 	};
 	
 	let locationThree = {
 		name : " ",
 		description : "The house of Robert DiMarco",
-		sprite: "item",
+		sprite: "Scene3Icon",
 		number: 3,
 	}
 	
@@ -263,7 +268,6 @@ function addToInventory(toAdd){
 }
 
 function openLetter(person){
-	console.log("HEY YOU");
 	
 	this.BLACK = game.add.sprite(0, 0, "fade_Black");
 	this.BLACK.alpha = 0;
@@ -345,7 +349,7 @@ function swapNotepad(){
 				{
 					this.notepadStuff.panels[i][1].text = "";
 					this.notepadStuff.panels[i][2].text = ""
-					this.notepadStuff.panels[i][0].loadTexture("",0,false);
+					this.notepadStuff.panels[i][0].loadTexture("blank",0,false);
 				}
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
