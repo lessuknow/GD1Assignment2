@@ -39,7 +39,16 @@ preloadState.prototype.preload = function(){
 	game.load.image("L2_3", "assets/Art/S2-L3.png");
 	game.load.image("L2_5", "assets/Art/S2-L2.png");
 	game.load.image("L2_6", "assets/Art/S2-L1.png");
-
+	
+	//LEVEL 3
+	game.load.image("L3_1", "assets/Art/S3-Background.png");
+	game.load.image("L3_2", "assets/Art/S3-L2.png");
+	game.load.image("L3_3", "assets/Art/S3-L3.png");
+	game.load.image("L3_4", "assets/Art/S3-L6.png");
+	game.load.image("L3_8", "assets/Art/S3-L1.png");
+	game.load.image("L3_9", "assets/Art/S3-L5.png");
+	game.load.image("L3_10", "assets/Art/S3-L4.png");
+	
 	//THE OBJECTS OF THE GAME
 	game.load.image("ArBottle", "assets/Art/Items_450x500_300dpi/Arsenic-Bottle.png");
 	game.load.image("ArReceipt", "assets/Art/Items_450x500_300dpi/Arsenic-Receipt.png");
