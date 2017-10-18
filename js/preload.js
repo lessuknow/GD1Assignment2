@@ -50,18 +50,18 @@ preloadState.prototype.preload = function(){
 
 	game.load.audio("Write1", "assets/Audio/PencilSounds/1.ogg");
 	game.load.audio("Write2", "assets/Audio/PencilSounds/2.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/3.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/4.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/5.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/6.ogg");
-	game.load.audio("Write1", "assets/Audio/PencilSounds/7.ogg");
-	game.load.audio("Write2", "assets/Audio/PencilSounds/8.ogg");
+	game.load.audio("Write3", "assets/Audio/PencilSounds/3.ogg");
+	game.load.audio("Write4", "assets/Audio/PencilSounds/4.ogg");
+	game.load.audio("Write5", "assets/Audio/PencilSounds/5.ogg");
+	game.load.audio("Write6", "assets/Audio/PencilSounds/6.ogg");
+	game.load.audio("Write7", "assets/Audio/PencilSounds/7.ogg");
+	game.load.audio("Write8", "assets/Audio/PencilSounds/8.ogg");
 
 	game.load.audio("Open", "assets/Audio/PaperSounds/Open1.ogg");
 	game.load.audio("Close", "assets/Audio/PaperSounds/Close1.ogg"); //phew
 	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn1.ogg");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn2.ogg");
-	game.load.audio("Turn1", "assets/Audio/PaperSounds/PageTurn3.ogg");
+	game.load.audio("Turn2", "assets/Audio/PaperSounds/PageTurn2.ogg");
+	game.load.audio("Turn3", "assets/Audio/PaperSounds/PageTurn3.ogg");
 
 	game.load.audio("Click", "assets/Audio/Other/Click.ogg");
 	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
@@ -71,76 +71,44 @@ preloadState.prototype.preload = function(){
 	
 }
 
-var turn1;
-var turn2;
-var turn3;
-var Write1;
-var Write2;
-var Write3;
-var Write4;
-var Write5;
-var Write6;
-var Write7;
-var Write8;
-var scribbles = [];
-var pageTurns = [];
-
 preloadState.prototype.create = function(){
 
-	// Adding audio from preload
-	turn1 = game.add.audio("Turn1");
-	turn2 = game.add.audio("Turn2");
-	turn3 = game.add.audio("Turn3");
+	this.turn1 = game.add.audio("Turn1");
+	this.turn2 = game.add.audio("Turn2");
+	this.turn3 = game.add.audio("Turn3");
 
-	Write1 = game.add.audio("Write1");
-	Write2 = game.add.audio("Write2");
-	Write3 = game.add.audio("Write3");
-	Write4 = game.add.audio("Write4");
-	Write5 = game.add.audio("Write5");
-	Write6 = game.add.audio("Write6");
-	Write7 = game.add.audio("Write7");
-	Write8 = game.add.audio("Write8");
+	this.Write1 = game.add.audio("Write1");
+	this.Write2 = game.add.audio("Write2");
+	this.Write3 = game.add.audio("Write3");
+	this.Write4 = game.add.audio("Write4");
+	this.Write5 = game.add.audio("Write5");
+	this.Write6 = game.add.audio("Write6");
+	this.Write7 = game.add.audio("Write7");
+	this.Write8 = game.add.audio("Write8");
 
-	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
-	pageTurns = [turn1, turn2, turn3];
+	// arrays of sounds for random playback
+	this.pageturns = [this.turn1, this.turn2, this.turn3];
+	this.scribbles = [this.Write1, this.Write2, this.Write3, this.Write4, this.Write5, this.Write6, this.Write7, this.Write8];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 
 	this.suspects = [];
 	
 	let susOne = {
-		name: "testName",
-		age: 3,
-		race: "testRace",
-		heightWeight: "testheightWeight",
-		hair: "testHair",
-		eyes: "testEyes",
-		infoWantedDescrip: "...",
-		notepadDescrip: "hello",
+		name: "William P. Henry",
+		notepadDescrip: "William is a queit old man.  He lives humbly with his wife Elena and refrains from gluttonous spending.",
 		pic: "perOneIcon",
 	};
 		
 	let susTwo = {
-		name: "testName2",
-		age: 5,
-		race: "testRace2",
-		heightWeight: "testheightWeight2",
-		hair: "testHair2",
-		eyes: "testEyes2",
-		infoWantedDescrip: "2...",
-		notepadDescrip: "hello2",
+		name: "C. Kensington",
+		notepadDescrip: "Charles' house is a pigsty.  He lives alone and does not seem to go out very much, except with friends.",
 		pic: "perTwoIcon",
 	};
 		
 	let susThree = {
-		name: "testName3",
-		age: 1,
-		race: "testRace3",
-		heightWeight: "testheightWeight3",
-		hair: "testHair3",
-		eyes: "testEyes3",
-		infoWantedDescrip: "3...",
-		notepadDescrip: "hello3",
+		name: "Robert DiMarco",
+		notepadDescrip: "Robert lives in a simple house.  He seems like a normal guy who needs to find himself a hobby.",
 		pic: "perThreeIcon",
 	};
 	
@@ -151,24 +119,23 @@ preloadState.prototype.create = function(){
 	this.locations = [];
 	
 	let locationOne = {
-		name : "locationOne",
-		description : "descriptOne",
+		name : "",
+		description : "The house of William Patrick Henry",
 	};
 	
 	let locationTwo = {
-		name : "locationTwo",
-		description : "descriptTwo",
+		name : "",
+		description : "The house of Charles Kensington",
 	};
 	
 	let locationThree = {
-		name : "locationThree",
-		description : "descriptThree",
+		name : "",
+		description : "The house of Robert DiMarco",
 	};
 	
 	this.locations.push(locationOne);
 	this.locations.push(locationTwo);
 	this.locations.push(locationThree);
-
 	game.state.start("Gameplay", true, false, this.suspects, this.locations);
 }
 
@@ -187,9 +154,9 @@ function changeHouse(house){
 	game.add.tween(house.fading).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
 	game.add.tween(house.cutscene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 4000);
 	game.add.tween(house.cutscene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
-	var tween = game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
-	this.houseNumber = house.number;
-	tween.onComplete.add(this.transition, this);
+	game.add.tween(house.fading).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 10000);
+	this.level = house.number;
+	this.transition(this);	
 	
 }
 
@@ -198,9 +165,6 @@ function addToInventory(toAdd){
 	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
 	toAdd.destroy();
-	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
-	soundToPlay.play();
-	// Write1.play();
 }
 
 function swapNotepad(){
@@ -241,7 +205,7 @@ function swapNotepad(){
 				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
-				if(this.playerInventory[i + this.curNotepadIndex]!= null)
+				if(this.playerInventory[i + this.curNotepadIndex]!=null)
 				{
 					this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
 					this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
