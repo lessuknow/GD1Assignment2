@@ -205,7 +205,7 @@ function fadeTwo(){
 }
 
 function move(){
-	game.state.start("House1", true, false);
+	game.state.start("Gameplay", true, false);
 }
 
 preloadState.prototype.update = function(){
