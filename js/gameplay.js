@@ -57,16 +57,7 @@ gameplayState.prototype.create = function(){
 	var style = { font: "bold 30px Arial", fill: "#FFFFFF", align: "center", wordWrap: true, wordWrapWidth: 750};
 	//descriptionText = game.add.text(15, game.world.height - 350, 'You must listen to me James.  No one must know about this.  I know of your plan to tell the others about my “bad habits” but it most certainly won\'t do.  I have worked hard and diligently to make my name and reputation strong.  I will not let you destroy what I have built.Yours,Robert', style);
 	//Here we automate relevant data, such as their coordiantes, and allowing us to interact with it
-	/*
-	for(var i = 0, len = this.ALLITEMS.children.length; i < len; i++){
-		this.ALLITEMS.children[i].forEach(function(item){
-			item.origX = item.x;
-			item.origY = item.y;
-			item.inputEnabled = true;
-			item.scale.setTo(0.3, 0.3);
-		});
-	}
-	*/
+
 	//TESTING FADE
 	let BLACK = game.add.sprite(0, 0, "fade_Black");
 	BLACK.alpha = 0;
