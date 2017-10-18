@@ -72,6 +72,9 @@ preloadState.prototype.preload = function(){
 	game.load.audio("Defeat", "assets/Audio/Other/DefeatBrushes.ogg");
 	
 	game.load.image("title", "assets/title.png");
+	game.load.image("LetterOneScreen", "assets/Art/LetterScreens/Letter1Screen.jpg");
+	game.load.image("LetterTwoScreen", "assets/Art/LetterScreens/Letter2Screen.jpg");
+	game.load.image("LetterThreeScreen", "assets/Art/LetterScreens/Letter3Screen.jpg");
 	
 	
 }
@@ -224,8 +227,42 @@ function addToInventory(toAdd){
 
 	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
 	soundToPlay.play();
-
+	
+	if(toAdd.name === "William's letter"){
+		openLetter("wil");
+	}
+	else if(toAdd.name === "...")
+	{
+		
+	}
 }
+
+function openLetter(person){
+	console.log("HEY YOU");
+	
+	this.BLACK = game.add.sprite(0, 0, "fade_Black");
+	this.BLACK.alpha = 0;
+	if(person==="wil")
+	{
+		this.scene = game.add.sprite(0,0,"LetterOneScreen");
+	}
+	
+	this.scene.alpha = 0;
+	game.add.tween(this.BLACK).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(this.scene).to({alpha:1}, 2000, Phaser.Easing.Linear.None, true, 3000);
+	this.scene.inputEnabled = true;
+	this.scene.events.onInputDown.add(fadeAway, this);
+}
+
+function fadeAway(){
+	this.scene.events.onInputDown.removeAll();
+	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true);
+	game.add.tween(this.BLACK).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true);
+	
+	
+	
+}
+
 
 function swapNotepad(){
 	for(i = 0; i < 3; i++){
