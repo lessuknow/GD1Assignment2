@@ -17,10 +17,6 @@ House1.prototype.create = function(){
 
 //ITEMS IN THIS HOSUE
 	this.background = game.add.sprite(0, 1334-275, "L1_5");
-	this.but = game.add.sprite(600,1334-175,"bkpk");
-	this.but.inputEnabled = true;
-	this.but.events.onInputDown.add(enableDisableNotepad, this);
-	this.but.events.onInputDown.add(swapNotepad, this);
 	//ITEMS IN THIS HOSUE
 	let item3 = game.add.sprite(600, 1050, "Cash"); //Loose Money
 	item3.description = "A haphazard pile of crisp bank notes - in the order of 250 pounds. A small fortune."
@@ -46,7 +42,7 @@ House1.prototype.create = function(){
 	this.itemsH1.add(item5); // Letter 1
 	
 	instantiateNotepad(this);
-	this.but = game.add.sprite(600,1334-150,"bkpk");
+	this.but = game.add.sprite(575,1334-150,"bkpk");
 	this.but.inputEnabled = true;
 	this.but.events.onInputDown.add(enableDisableNotepad, this);
 	this.but.events.onInputDown.add(swapNotepad, this);
