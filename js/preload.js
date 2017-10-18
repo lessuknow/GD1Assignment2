@@ -1,4 +1,8 @@
 //'constructor'
+let playerInventory = [];
+let suspects = [];
+let locations = [];
+let houseNumber = 0;
 let preloadState = function(){
 	
 }
@@ -88,7 +92,6 @@ var pageturns;
 var scribbles;
 
 preloadState.prototype.create = function(){
-	this.playerInventory = [];
 //SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 
 	turn1 = game.add.audio("Turn1");
@@ -109,8 +112,6 @@ preloadState.prototype.create = function(){
 	scribbles = [Write1, Write2, Write3, Write4, Write5, Write6, Write7, Write8];
 
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
-	this.suspects = [];
-	
 	let susOne = {
 		name: "William P. Henry",
 		notepadDescrip: "William is a queit old man.  He lives humbly with his wife Elena and refrains from gluttonous spending.",
@@ -129,12 +130,10 @@ preloadState.prototype.create = function(){
 		pic: "perThreeIcon",
 	};
 	
-	this.suspects.push(susOne);
-	this.suspects.push(susTwo);
-	this.suspects.push(susThree);
+	suspects.push(susOne);
+	suspects.push(susTwo);
+	suspects.push(susThree);
 	//INFORMATION FOR LOCATION IN NOTEPAD
-
-	this.locations = [];
 	
 	let locationOne = {
 		name : " ",
@@ -157,25 +156,13 @@ preloadState.prototype.create = function(){
 		number: 3,
 	}
 	
-	this.locations.push(locationOne);
-	this.locations.push(locationTwo);
-	this.locations.push(locationThree);
-	game.state.start("Gameplay", true, false, this.suspects, this.locations);
+	locations.push(locationOne);
+	locations.push(locationTwo);
+	locations.push(locationThree);
+	game.state.start("Gameplay", true, false);
 }
 
 preloadState.prototype.update = function(){
-	
-}
-preloadState.prototype.transition = function(){
-	console.log("it worked " + this.houseNumber);
-	if(this.houseNumber === 1){
-		console.log("this.game.state.start(HOUSE 1)");
-		game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.allHouses, this.playerInventory);
-	}
-	else if(this.houseNumber === 2)
-		console.log("this.game.state.start(HOUSE 2)");
-	else if(this.houseNumber === 3)
-		console.log("this.game.state.starts(HOUSE 3)");
 	
 }
 function changeHouse(){
@@ -197,23 +184,28 @@ function changeHouse(){
 	game.add.tween(this.scene).to({alpha:0}, 2000, Phaser.Easing.Linear.None, true, 10000);
 	var tween = game.add.tween(this.BLACK).to({alpha:0}, 0, Phaser.Easing.Linear.None, true, 9000);
 	tween.onComplete.add(function(){
-		console.log("it worked " + this.houseNumber);
+		console.log("it worked " + this.number);
 		if(this.number === 1){
 			console.log("this.game.state.start(HOUSE 1)");
-			game.state.start("House1", false, true, this.suspects, this.locations, this.notepadStuff, this.playerInventory);
+			game.state.start("House1", false, true);
 		}
-		else if(this.number === 2)
+		else if(this.number === 2){
 			console.log("this.game.state.start(HOUSE 2)");
-		else if(this.number === 3)
+			game.state.start("House2", false, true);
+		}
+		else if(this.number === 3){
 			console.log("this.game.state.starts(HOUSE 3)");
+			game.state.start("House3", false, true);
+		}
 	}, this);
 	
 }
 
 function addToInventory(toAdd){
-	this.playerInventory.push(toAdd);
+	playerInventory.push(toAdd);
 	console.log("Added "+toAdd.name);
 	descriptionText.text = toAdd.description;
+	toAdd.inputEnabled = false;
 	toAdd.destroy();
 
 	let soundToPlay = scribbles[Math.floor(Math.random()*scribbles.length)];
@@ -233,20 +225,17 @@ function swapNotepad(){
 	if(this.curNotepadPos==="suspects"){
 		this.arrows.visible = false;
 		this.accuseBar.visible = true;
-		this.allHouses.forEach(function(house){
-			house.visible = false;
-		});
 		
-		for(i =0;i<this.suspects.length;i++)
+		for(i =0;i<suspects.length;i++)
 		{
 			for(j=0;j<this.notepadStuff.panels[i].length;j++)
 			{
 			
 					this.notepadStuff.panels[i][0].width = 200;
 					this.notepadStuff.panels[i][0].height = 200;
-					this.notepadStuff.panels[i][1].text = this.suspects[i].notepadDescrip;
-					this.notepadStuff.panels[i][2].text = this.suspects[i].name;
-					this.notepadStuff.panels[i][0].loadTexture(this.suspects[i].pic,0,false);
+					this.notepadStuff.panels[i][1].text = suspects[i].notepadDescrip;
+					this.notepadStuff.panels[i][2].text = suspects[i].name;
+					this.notepadStuff.panels[i][0].loadTexture(suspects[i].pic,0,false);
 				
 			}
 		}
@@ -255,9 +244,6 @@ function swapNotepad(){
 		
 		this.arrows.visible = true;
 		this.accuseBar.visible = false;
-		this.allHouses.forEach(function(house){
-			house.visible = false;
-		});
 		
 		for(i=0;i<3;i++)
 		{
@@ -266,11 +252,11 @@ function swapNotepad(){
 				//this.notepadStuff.panels[i][0].scale.setTo(0.3, 0.3);
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
-				if(this.playerInventory[i + this.curNotepadIndex]!=null)
+				if(playerInventory[i + this.curNotepadIndex]!=null)
 				{
-					this.notepadStuff.panels[i][1].text = this.playerInventory[i + this.curNotepadIndex].description;
-					this.notepadStuff.panels[i][2].text = this.playerInventory[i + this.curNotepadIndex].name;
-					this.notepadStuff.panels[i][0].loadTexture(this.playerInventory[i + this.curNotepadIndex].pic,0,false);
+					this.notepadStuff.panels[i][1].text = playerInventory[i + this.curNotepadIndex].description;
+					this.notepadStuff.panels[i][2].text = playerInventory[i + this.curNotepadIndex].name;
+					this.notepadStuff.panels[i][0].loadTexture(playerInventory[i + this.curNotepadIndex].pic,0,false);
 				}
 				else
 				{
@@ -293,11 +279,11 @@ function swapNotepad(){
 				this.notepadStuff.panels[i][0].width = 200;
 				this.notepadStuff.panels[i][0].height = 200;
 				
-				this.notepadStuff.panels[i][1].text = this.locations[i].description;
-				this.notepadStuff.panels[i][2].text = this.locations[i].name;
-				this.notepadStuff.panels[i][0].loadTexture(this.locations[i].sprite, 0, false);
+				this.notepadStuff.panels[i][1].text = locations[i].description;
+				this.notepadStuff.panels[i][2].text = locations[i].name;
+				this.notepadStuff.panels[i][0].loadTexture(locations[i].sprite, 0, false);
 				this.notepadStuff.panels[i][0].inputEnabled = true;
-				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: this.locations[i].number});
+				this.notepadStuff.panels[i][0].events.onInputDown.add(changeHouse, {number: locations[i].number});
 				
 			}
 		}
@@ -326,7 +312,7 @@ function swapLoc(){
 }
 
 function notebookIndexAdd(){
-	if(this.playerInventory.length-2>(this.curNotepadIndex +1 ) && this.curNotepadPos==="objects"){
+	if(playerInventory.length-2>(this.curNotepadIndex +1 ) && this.curNotepadPos==="objects"){
 		this.curNotepadIndex++;
 	}
 }
