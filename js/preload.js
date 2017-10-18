@@ -120,7 +120,7 @@ preloadState.prototype.create = function(){
 	//SUSPECTS INFORMATION ON NOTEPAD FOR SUSPECTS
 	let susOne = {
 		name: "William P. Henry",
-		notepadDescrip: "William is a queit old man.  He lives humbly with his wife Elena and refrains from gluttonous spending.",
+		notepadDescrip: "William is a quiet old man.  He lives humbly with his wife Elena and refrains from gluttonous spending.",
 		pic: "perOneIcon",
 	};
 		
