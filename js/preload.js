@@ -265,7 +265,6 @@ function addToInventory(toAdd){
 		openLetter("rob");
 	}
 }
-
 function openLetter(person){
 	console.log("HEY YOU");
 	
@@ -301,7 +300,6 @@ function fadeAway(){
 tempTween.onComplete.add(function(){this.scene.inputEnabled = false;}, this);
 	
 }
-
 
 function swapNotepad(){
 	for(i = 0; i < 3; i++){
